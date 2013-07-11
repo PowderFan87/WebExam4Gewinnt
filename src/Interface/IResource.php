@@ -11,4 +11,5 @@ interface IResource
     public function exec($strQuery);
     public function read($strQuery, $blnArray = false);
     public function readSingle($strQuery);
+    public function update($arrFieldList, $strScope, $arrConditions = array());
 }

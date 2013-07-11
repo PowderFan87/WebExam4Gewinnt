@@ -6,9 +6,10 @@ ini_set('display_errors', '1');
 define("BASE_DIR", __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR);
 
 // Directory configuration
-define("SRC_DIR", BASE_DIR . "src" . DIRECTORY_SEPARATOR);
+define("SRC_DIR",       BASE_DIR . "src" . DIRECTORY_SEPARATOR);
 define("INTERFACE_DIR", SRC_DIR . "Interface" . DIRECTORY_SEPARATOR);
-define("TEMPLATE_DIR", SRC_DIR . "Template" . DIRECTORY_SEPARATOR);
+define("TBL_CLASS_DIR", SRC_DIR . "App" . DIRECTORY_SEPARATOR . "Data" . DIRECTORY_SEPARATOR . "Table" . DIRECTORY_SEPARATOR);
+define("TEMPLATE_DIR",  SRC_DIR . "Template" . DIRECTORY_SEPARATOR);
 
 // Template Config
 define("TPL_MODE_HTML_FULL",        "html/full");
@@ -39,6 +40,8 @@ if(isset($_SERVER["REDIRECT_URL"])) {
 function __autoload($strClassname) {
     if(substr($strClassname, 0, 1) === "I") {
         include_once INTERFACE_DIR . str_replace("_", DIRECTORY_SEPARATOR, $strClassname) . ".php";
+    } else if(substr($strClassname, 0, 3) === "tbl") {
+        include_once TBL_CLASS_DIR . $strClassname . ".php";
     } else {
         include_once SRC_DIR . str_replace("_", DIRECTORY_SEPARATOR, $strClassname) . ".php";
     }

@@ -73,7 +73,39 @@ class Resource_DB_MySQL implements IResource
      * @return Array
      */
     public function readSingle($strQuery) {
-        return array_shift($this->read($strQuery, true));
+        return $this->read($strQuery, true);
+    }
+
+    public function update($arrFieldList, $strScope, $arrConditions = array()) {
+        if (empty($arrFieldList)) {
+            throw new Resource_Exception('Fieldlist is empty!');
+        }
+
+        if ($strScope === '') {
+            throw new Resource_Exception('Table is empty!');
+        }
+
+        $arrValues      = array();
+        $arrSelectors   = array();
+        $strSql         = 'UPDATE ' . $strScope . ' SET %s %s';
+
+        foreach ($arrFieldList as $strFieldName => $mixFieldValue) {
+            $arrValues[] = $strFieldName . ' = "' . $mixFieldValue . '"';
+        }
+
+        $blnFirst = true;
+        if (!empty($arrConditions)) {
+            foreach ($arrConditions as $strFieldName => $arrConditionParams) {
+                if ($blnFirst) {
+                    $arrSelectors[] = 'WHERE ' . $strFieldName . ' ' . $arrConditionParams['operator'] . ' "' . $arrConditionParams['value'] . '"';
+                    $blnFirst = false;
+                } else {
+                    $arrSelectors[] = 'AND ' . $strFieldName . ' ' . $arrConditionParams['operator'] . ' "' . $arrConditionParams['value'] . '" ';
+                }
+            }
+        }
+
+        return $this->exec(sprintf($strSql, implode(', ', $arrValues), implode('', $arrSelectors)));
     }
 
     private function __clone() {

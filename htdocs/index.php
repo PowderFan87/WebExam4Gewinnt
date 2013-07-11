@@ -12,6 +12,3 @@ try {
 } catch (Exception $e) {
     echo "Fehler: " . $e->getMessage();
 }
-
-//var_dump($_SERVER);
-//var_dump($_REQUEST);

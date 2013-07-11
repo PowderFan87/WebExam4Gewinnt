@@ -12,7 +12,13 @@ class Core_Web
     private $_objRequest;
 
     public function __construct() {
+        session_start();
+
         $this->_doInit();
+    }
+
+    public function __destruct() {
+        session_write_close();
     }
 
     public function run() {
