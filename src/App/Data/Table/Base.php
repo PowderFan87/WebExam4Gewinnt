@@ -7,9 +7,9 @@
  */
 abstract class App_Data_Table_Base
 {
-    const TABLE_NAME    = "undefined";
-    const TABLE_PK      = "undefined";
-    const TABLE_ARCLASS = "undefined";
+    const TABLE_NAME    = 'undefined';
+    const TABLE_PK      = 'undefined';
+    const TABLE_ARCLASS = 'undefined';
 
     /**
      *
@@ -22,8 +22,8 @@ abstract class App_Data_Table_Base
         $strPkget   = 'get' . $strClass::TABLE_PK;
 
         $arrConditions[$strClass::TABLE_PK] = array(
-            "operator"  => "=",
-            "value"     => $objEntity->$strPkget()
+            'operator'  => '=',
+            'value'     => $objEntity->$strPkget()
         );
 
         try {

@@ -7,6 +7,6 @@
  */
 final class App_Data_Message extends App_Data_Base
 {
-    const   TABLE_CLASS = "tblMessage";
-    const   TABLE_PK    = "UID";
+    const   TABLE_CLASS = 'tblMessage';
+    const   TABLE_PK    = 'UID';
 }

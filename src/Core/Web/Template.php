@@ -7,7 +7,7 @@
  */
 class Core_Web_Template
 {
-    protected $_txtOutput = "";
+    protected $_txtOutput = '';
     protected $_objResponse;
 
     /**
@@ -25,10 +25,15 @@ class Core_Web_Template
     }
 
     public function __toString() {
-        $this->_txtOutput = preg_replace_callback("/#TPL:([a-z].*?)#/", array($this, "_getTplreplacement"), $this->_txtOutput);
-        $this->_txtOutput = preg_replace_callback("/#VAR:([a-z].*?)#/", array($this, "_getVarreplacement"), $this->_txtOutput);
+        $this->_txtOutput = preg_replace_callback('/#CONF:([a-z].*?)#/', array($this, '_getConfreplacement'), $this->_txtOutput);
+        $this->_txtOutput = preg_replace_callback('/#TPL:([a-z].*?)#/', array($this, '_getTplreplacement'), $this->_txtOutput);
+        $this->_txtOutput = preg_replace_callback('/#VAR:([a-z].*?)#/', array($this, '_getVarreplacement'), $this->_txtOutput);
 
         return $this->_txtOutput;
+    }
+
+    protected function _getConfreplacement($arrMatch) {
+        return $this->_objResponse->$arrMatch[1];
     }
 
     protected function _getVarreplacement($arrMatch) {

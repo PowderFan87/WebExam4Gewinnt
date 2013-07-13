@@ -22,7 +22,7 @@ class App_Factory_Response
     }
 
     private static function _doLoad() {
-        if(isset($_SERVER["HTTP_X_REQUESTED_WITH"])) {
+        if(isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
             self::$_objResponse = new Core_Web_XHttpResponse();
         } else {
             self::$_objResponse = new Core_Web_HttpResponse();

@@ -8,7 +8,7 @@
 class Core_Web_HttpRequest extends Core_Web_Request
 {
     public function getRequesttype() {
-        return "HttpRequest";
+        return 'HttpRequest';
     }
 
     protected function _doFetchdata() {

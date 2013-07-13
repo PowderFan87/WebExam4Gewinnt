@@ -20,7 +20,7 @@ class App_Factory_Resource
         }
 
         if(!(self::$_objResource instanceof IResource)) {
-            throw new App_Factory_Exception("Current instance of Resource is invalid");
+            throw new App_Factory_Exception('Current instance of Resource is invalid');
         }
 
         return self::$_objResource;
@@ -30,7 +30,7 @@ class App_Factory_Resource
      *
      */
     private static function _doLoad() {
-        $strResourcename = "Resource_" . RESOURCE_TYPE . "_" . RESOURCE_SYSTEM;
+        $strResourcename = 'Resource_' . RESOURCE_TYPE . '_' . RESOURCE_SYSTEM;
 
         self::$_objResource = new $strResourcename();
     }

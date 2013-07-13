@@ -8,7 +8,7 @@
 class Core_Web_XHttpRequest extends Core_Web_Request
 {
     public function getRequesttype() {
-        return "XHttpRequest";
+        return 'XHttpRequest';
     }
 
     protected function _doFetchdata() {

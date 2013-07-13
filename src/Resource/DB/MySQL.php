@@ -14,14 +14,14 @@ class Resource_DB_MySQL implements IResource
      * @throws Resource_Exception
      */
     public function __construct() {
-        $this->_resDb = mysql_connect(RESOURCE_DB_HOST . ":" . RESOURCE_DB_PORT, RESOURCE_DB_USER, RESOURCE_DB_PASSWORD);
+        $this->_resDb = mysql_connect(RESOURCE_DB_HOST . ':' . RESOURCE_DB_PORT, RESOURCE_DB_USER, RESOURCE_DB_PASSWORD);
 
         if($this->_resDb === false) {
-            throw new Resource_Exception("Can't connect to host '" . RESOURCE_DB_HOST . ":" . RESOURCE_DB_PORT . "': " . mysql_error());
+            throw new Resource_Exception('Can\'t connect to host "' . RESOURCE_DB_HOST . ':' . RESOURCE_DB_PORT . '": ' . mysql_error());
         }
 
         if(!mysql_selectdb(RESOURCE_DB_NAME, $this->_resDb)) {
-            throw new Resource_Exception("Can't select database '" . RESOURCE_DB_NAME . "': " . mysql_error());
+            throw new Resource_Exception('Can\'t select database "' . RESOURCE_DB_NAME . '": ' . mysql_error());
         }
     }
 
@@ -42,7 +42,7 @@ class Resource_DB_MySQL implements IResource
         if (mysql_query($strQuery, $this->_resDb)) {
             return true;
         } else {
-            throw new Resource_Exception("MySQL Query execute error: " . mysql_error() . " with SQL: $strQuery");
+            throw new Resource_Exception('MySQL Query execute error: ' . mysql_error() . ' with SQL: $strQuery');
         }
     }
 
@@ -57,7 +57,7 @@ class Resource_DB_MySQL implements IResource
         $objResultset = mysql_query($strQuery, $this->_resDb);
 
         if($objResultset === false) {
-            throw new Resource_Exception("MySQL Query execute error: " . mysql_error() . " with SQL: $strQuery");
+            throw new Resource_Exception('MySQL Query execute error: ' . mysql_error() . ' with SQL: $strQuery');
         }
 
         if($blnArray) {
@@ -90,17 +90,17 @@ class Resource_DB_MySQL implements IResource
         $strSql         = 'UPDATE ' . $strScope . ' SET %s %s';
 
         foreach ($arrFieldList as $strFieldName => $mixFieldValue) {
-            $arrValues[] = $strFieldName . ' = "' . $mixFieldValue . '"';
+            $arrValues[] = $strFieldName . ' = \'' . $mixFieldValue . '\'';
         }
 
         $blnFirst = true;
         if (!empty($arrConditions)) {
             foreach ($arrConditions as $strFieldName => $arrConditionParams) {
                 if ($blnFirst) {
-                    $arrSelectors[] = 'WHERE ' . $strFieldName . ' ' . $arrConditionParams['operator'] . ' "' . $arrConditionParams['value'] . '"';
+                    $arrSelectors[] = 'WHERE ' . $strFieldName . ' ' . $arrConditionParams['operator'] . ' \'' . $arrConditionParams['value'] . '\'';
                     $blnFirst = false;
                 } else {
-                    $arrSelectors[] = 'AND ' . $strFieldName . ' ' . $arrConditionParams['operator'] . ' "' . $arrConditionParams['value'] . '" ';
+                    $arrSelectors[] = 'AND ' . $strFieldName . ' ' . $arrConditionParams['operator'] . ' \'' . $arrConditionParams['value'] . '\' ';
                 }
             }
         }
@@ -122,7 +122,7 @@ class Resource_DB_MySQL implements IResource
         $arrRows = mysql_fetch_assoc($objResultset);
 
         if($arrRows === false) {
-            throw new Resource_Exception("MySQL fetch assoc error: " . mysql_error());
+            throw new Resource_Exception('MySQL fetch assoc error: ' . mysql_error());
         }
 
         return $arrRows;

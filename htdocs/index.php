@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'conf' . DIRECTORY_SEPARATOR . 'conf.php';
 
-header("Content-Type: text/plain;");
+header('Content-Type: text/html;');
 
 try {
     $objWeb = new Core_Web();
@@ -10,5 +10,5 @@ try {
 
     echo $objWeb;
 } catch (Exception $e) {
-    echo "Fehler: " . $e->getMessage();
+    echo 'Fehler: ' . $e->getMessage();
 }

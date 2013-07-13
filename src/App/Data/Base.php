@@ -7,8 +7,8 @@
  */
 abstract class App_Data_Base
 {
-    const   TABLE_CLASS = "undefined";
-    const   TABLE_PK    = "UID";
+    const   TABLE_CLASS = 'undefined';
+    const   TABLE_PK    = 'UID';
 
     protected $_arrData;
     protected $_blnAltered = false;
@@ -25,7 +25,7 @@ abstract class App_Data_Base
     public function __call($strName, $arrArguments) {
         switch(substr($strName, 0, 3)) {
             case 'get':
-                $strAttrname = str_replace("get", "", $strName);
+                $strAttrname = str_replace('get', '', $strName);
 
                 if(isset($this->_arrData[$strAttrname])) {
                     return $this->_arrData[$strAttrname];
@@ -34,7 +34,7 @@ abstract class App_Data_Base
                 break;
 
             case 'set':
-                $strAttrname = str_replace("set", "", $strName);
+                $strAttrname = str_replace('set', '', $strName);
 
                 if($strAttrname == self::TABLE_PK) {
                     return false;
@@ -65,8 +65,10 @@ abstract class App_Data_Base
 
         if($strTable::doUpdateallbypk($this)) {
             $this->_blnUpdated = true;
+            $this->_blnAltered = false;
         } else {
             $this->_blnUpdated = false;
+            $this->_blnAltered = true;
         }
 
         return $this->_blnUpdated;

@@ -17,6 +17,6 @@ class Command_Registrieren extends Core_Base_Command implements IHttpRequest
     }
 
     protected function _doInit() {
-        $this->_objResponse->strTitle = "Registrieren";
+        $this->_objResponse->strTitle = 'Registrieren';
     }
 }
