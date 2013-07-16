@@ -15,7 +15,11 @@ abstract class App_Data_Base
     protected $_blnUpdated = false;
 
     public function __construct($arrData) {
-        $this->_arrData = $arrData;
+        if(is_array($arrData)) {
+            $this->_arrData = $arrData;
+        } else {
+            $this->_arrData = $this->getEmpryarray();
+        }
     }
 
     public function getArrdata() {
@@ -73,4 +77,6 @@ abstract class App_Data_Base
 
         return $this->_blnUpdated;
     }
+    
+    abstract protected function getEmpryarray();
 }

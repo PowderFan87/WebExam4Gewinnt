@@ -9,11 +9,15 @@ class Command_Registrieren extends Core_Base_Command implements IHttpRequest
 {
 
     public function getMain() {
-
+        $this->_objResponse->tplContent = "Registrieren_GET_Main";
+        
+        
     }
 
     public function postMain() {
-
+        $this->_objResponse->tplContent = "Registrieren_POST_Main";
+        
+        
     }
 
     protected function _doInit() {

@@ -9,4 +9,14 @@ final class App_Data_User extends App_Data_Base
 {
     const   TABLE_CLASS = 'tblUser';
     const   TABLE_PK    = 'UID';
+    
+    protected function getEmpryarray() {
+        return array(
+            'strUsername',
+            'strPassword',
+            'strEmail',
+            'blnLoggedin' => false,
+            'dtmLastaction'
+        );
+    }
 }
