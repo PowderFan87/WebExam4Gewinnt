@@ -42,9 +42,24 @@ class Command_Registrieren extends Core_Base_Command implements IHttpRequest
             if(!$objUser->doInsert()) {
                 $this->_objResponse->strMessage = 'Fehler beim erstellen des Users. Bitte versuchen Sie es erneut';
             } else {
-                /*
-                 * @TODO email versand
-                 */
+                $txtMail = <<<TXT
+Hallo {$objUser->getstrUsername()},
+
+vielen Dank für deine Anmeldung bei 4-Gewinnt.
+Um deine Anmeldung zu vervollständigen folge bitte dem Link in der Email.
+
+http://localhost/WebExam4Gewinnt/htdocs/Registrieren/Aktivieren?user={$objUser->getstrUsername()}
+
+Vielen Dank und viel Spaß beim 4-Gewinnt spielen :)
+
+Grüße,
+
+4-Gewinnt Team
+TXT;
+
+                if(!mail($objUser->getstrEmail(), "4-Gewinnt: Registrierung abschließen", $txtMail)) {
+                    $this->_objResponse->strMessage = 'Bitte folge folgendem Link um die Registrierung ab zu schließen.<br /><a href="/WebExam4Gewinnt/htdocs/Registrieren/Aktivieren?user=' . $objUser->getstrUsername() . '">Registrierung abschließen</a>';
+                }
 
                 $this->_objResponse->strMessage = 'Registrierung erfolgreich. Bitte checken Sie Ihren Posteingang um die Registrierung abzuschließen';
             }
