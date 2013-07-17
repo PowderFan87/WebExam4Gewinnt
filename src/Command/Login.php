@@ -16,13 +16,15 @@ class Command_Login extends Core_Base_Command implements IHttpRequest
 
     public function postMain() {
         App_Web_Security::tryLogin($this->_objRequest->username, $this->_objRequest->password);
-        
+
         $this->_objResponse->tplContent     = 'Login_POST_Main';
 
         $this->_objResponse->strWellcome    = '';
     }
 
     public function getLogout() {
+        $this->_objResponse->tplContent     = 'Login_GET_Logout';
+
         App_Factory_Security::getSecurity()->doDestroysession();
     }
 

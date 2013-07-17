@@ -25,9 +25,9 @@ class Core_Web_Template
     }
 
     public function __toString() {
-        $this->_txtOutput = preg_replace_callback('/#CONF:([a-z].*?)#/', array($this, '_getConfreplacement'), $this->_txtOutput);
-        $this->_txtOutput = preg_replace_callback('/#TPL:([a-z].*?)#/', array($this, '_getTplreplacement'), $this->_txtOutput);
-        $this->_txtOutput = preg_replace_callback('/#VAR:([a-z].*?)#/', array($this, '_getVarreplacement'), $this->_txtOutput);
+        $this->_txtOutput = preg_replace_callback('/#CONF:([\w].*?)#/', array($this, '_getConfreplacement'), $this->_txtOutput);
+        $this->_txtOutput = preg_replace_callback('/#TPL:([\w].*?)#/', array($this, '_getTplreplacement'), $this->_txtOutput);
+        $this->_txtOutput = preg_replace_callback('/#VAR:([\w].*?)#/', array($this, '_getVarreplacement'), $this->_txtOutput);
 
         return $this->_txtOutput;
     }

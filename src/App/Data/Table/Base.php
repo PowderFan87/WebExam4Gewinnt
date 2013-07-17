@@ -18,7 +18,6 @@ abstract class App_Data_Table_Base
      */
     public static function doUpdateallbypk($objEntity) {
         $strClass   = get_called_class();
-        $strTable   = $strClass::TABLE_NAME;
         $strPkget   = 'get' . $strClass::TABLE_PK;
 
         $arrConditions[$strClass::TABLE_PK] = array(
@@ -27,7 +26,19 @@ abstract class App_Data_Table_Base
         );
 
         try {
-            return App_Factory_Resource::getResource()->update($objEntity->getArrdata(), $strTable, $arrConditions);
+            return App_Factory_Resource::getResource()->update($objEntity->getArrdata(), $strClass::TABLE_NAME, $arrConditions);
+        } catch(Resource_Exception $e) {
+            var_dump($e);
+        }
+
+        return false;
+    }
+
+    public static function doInsert($objEntity) {
+        $strClass   = get_called_class();
+
+        try {
+            return App_Factory_Resource::getResource()->insert($objEntity->getArrdata(), $strClass::TABLE_NAME);
         } catch(Resource_Exception $e) {
             var_dump($e);
         }

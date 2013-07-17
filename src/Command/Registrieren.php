@@ -9,18 +9,98 @@ class Command_Registrieren extends Core_Base_Command implements IHttpRequest
 {
 
     public function getMain() {
-        $this->_objResponse->tplContent = "Registrieren_GET_Main";
-        
-        
+        $this->_objResponse->tplContent = 'Registrieren_GET_Main';
     }
 
     public function postMain() {
-        $this->_objResponse->tplContent = "Registrieren_POST_Main";
-        
-        
+        $this->_objResponse->tplContent = 'Registrieren_POST_Main';
+
+        $arrErrors = $this->_doValidate();
+
+        if(!empty($arrErrors)) {
+            $this->_objResponse->tplContent = 'Registrieren_GET_Main';
+
+            foreach($arrErrors as $strField => $blnError) {
+                if(!$blnError) {
+                    continue;
+                }
+
+                $strErrorvariable = 'ERROR_' . $strField;
+
+                $this->_objResponse->$strErrorvariable = 'error';
+            }
+
+            $this->_objResponse->strEmail       = $this->_objRequest->strEmail;
+            $this->_objResponse->strUsername    = $this->_objRequest->strUsername;
+        } else {
+            $objUser = new App_Data_User();
+
+            $objUser->setstrUsername($this->_objRequest->strUsername);
+            $objUser->setstrEmail($this->_objRequest->strEmail);
+            $objUser->setstrPassword(md5(MD5_MOD . $this->_objRequest->strPassword));
+
+            if(!$objUser->doInsert()) {
+                $this->_objResponse->strMessage = 'Fehler beim erstellen des Users. Bitte versuchen Sie es erneut';
+            } else {
+                /*
+                 * @TODO email versand
+                 */
+
+                $this->_objResponse->strMessage = 'Registrierung erfolgreich. Bitte checken Sie Ihren Posteingang um die Registrierung abzuschließen';
+            }
+        }
+    }
+
+    public function getAktivieren() {
+        $this->_objResponse->tplContent = 'Registrieren_GET_Aktivieren';
+
+        $this->_objResponse->strUsername = $this->_objRequest->user;
+    }
+
+    public function postAktivieren() {
+        $this->_objResponse->tplContent = 'Registrieren_POST_Aktivieren';
+
+        $objUser = tblUser::getUserbystrusername($this->_objRequest->strUsername);
+
+        if(!$objUser instanceof App_Data_User || md5(MD5_MOD . $this->_objRequest->strPassword) !== $objUser->getstrPassword()) {
+            $this->_objResponse->tplContent = 'Registrieren_GET_Aktivieren';
+
+            $this->_objResponse->ERROR_strPassword = 'error';
+            $this->_objResponse->strUsername = $this->_objRequest->strUsername;
+        } else {
+            $objUser->setblnActivated(true);
+
+            if(!$objUser->doFullupdate()) {
+                $this->_objResponse->strMessage = 'Aktivierung fehlgeschlagen';
+            } else {
+                $this->_objResponse->strMessage = 'Aktivierung erfolgreich';
+            }
+        }
     }
 
     protected function _doInit() {
         $this->_objResponse->strTitle = 'Registrieren';
+    }
+
+    private function _doValidate() {
+        $arrErrors = array();
+
+        if(!App_Tools_Validator::isValiduser($this->_objRequest->strUsername)) {
+            $arrErrors['strUsername'] = true;
+        }
+
+        if(!App_Tools_Validator::isEmail($this->_objRequest->strEmail)) {
+            $arrErrors['strEmail'] = true;
+        }
+
+        if(!App_Tools_Validator::notEmpty($this->_objRequest->strPassword)) {
+            $arrErrors['strPassword'] = true;
+        }
+
+        if(!App_Tools_Validator::areEqual($this->_objRequest->strPassword, $this->_objRequest->strPassword_reenter)) {
+            $arrErrors['strPassword_reenter'] = true;
+        }
+
+        return $arrErrors;
     }
 }

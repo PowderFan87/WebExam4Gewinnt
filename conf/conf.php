@@ -26,6 +26,9 @@ define('RESOURCE_DB_NAME',      'webexam');
 define('RESOURCE_DB_USER',      'webexam');
 define('RESOURCE_DB_PASSWORD',  'meinpw');
 
+// Security Config
+define('MD5_MOD', '4GeWiNnT');
+
 // Hook configuration
 $GLOBALS['arrCFGPrehooks']  = array(
     'App_Hook_Security'

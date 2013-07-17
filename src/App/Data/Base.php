@@ -14,7 +14,7 @@ abstract class App_Data_Base
     protected $_blnAltered = false;
     protected $_blnUpdated = false;
 
-    public function __construct($arrData) {
+    public function __construct($arrData = NULL) {
         if(is_array($arrData)) {
             $this->_arrData = $arrData;
         } else {
@@ -77,6 +77,21 @@ abstract class App_Data_Base
 
         return $this->_blnUpdated;
     }
-    
+
+    public function doInsert() {
+        $strClass   = get_called_class();
+        $strTable   = $strClass::TABLE_CLASS;
+
+        if($strTable::doInsert($this)) {
+            $this->_blnUpdated = true;
+            $this->_blnAltered = false;
+        } else {
+            $this->_blnUpdated = false;
+            $this->_blnAltered = true;
+        }
+
+        return $this->_blnUpdated;
+    }
+
     abstract protected function getEmpryarray();
 }

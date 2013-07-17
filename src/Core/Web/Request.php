@@ -36,7 +36,7 @@ abstract class Core_Web_Request
 
     private function _doSanatize() {
         foreach($this->_arrData as $mixKey => $mixValue) {
-            $this->_arrData[$mixKey] = mysql_escape_string(strip_tags($mixValue));
+            $this->_arrData[$mixKey] = @mysql_escape_string(strip_tags($mixValue));
         }
     }
 

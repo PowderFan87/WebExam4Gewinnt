@@ -108,6 +108,52 @@ class Resource_DB_MySQL implements IResource
         return $this->exec(sprintf($strSql, implode(', ', $arrValues), implode('', $arrSelectors)));
     }
 
+    /**
+     * Do Insert into DB
+     *
+     * If you have two or more Rows to Insert, pass an Array like this:
+     * 		array(
+     * 			0 => array('uid', 'strName'),	//field lisst
+     * 			1 => array(0, 'Name1'),			//row1
+     * 			2 => array(1, 'Name2')			//row2
+     * If you have only one row to insert, pass an Array like this:
+     * 		array(
+     * 			'uid'		=> 0,
+     * 			'strName'	=> 'Name1'
+     * 		)
+     *
+     * @param Array $arrFieldList
+     * @param String $strScope
+     * @return Boolean
+     */
+    public function insert($arrFieldList, $strScope) {
+        if (empty($arrFieldList)) {
+            throw new Resource_Exception('Fieldlist is empty!');
+        }
+
+        if ($strScope == '') {
+            throw new Resource_Exception('Table is empty!');
+        }
+
+        $arrValues  = array();
+        $strSql     = 'INSERT INTO ' . $strScope . ' SET %s';
+
+        if (!is_string(array_shift(array_keys($arrFieldList)))) {
+            $arrFieldnames = array_shift($arrFieldList);
+            $strSql = str_replace('SET', '(' . implode(', ', $arrFieldnames) . ') VALUES ', $strSql);
+
+            foreach ($arrFieldList as $arrRow) {
+                $arrValues[] = '("' . implode('", "', $arrRow) . '")';
+            }
+        } else {
+            foreach ($arrFieldList as $strFieldName => $mixFieldValue) {
+                $arrValues[] = $strFieldName . ' = "' . $mixFieldValue . '"';
+            }
+        }
+
+        return $this->exec(sprintf($strSql, implode(', ', $arrValues)));
+    }
+
     private function __clone() {
         ;
     }
