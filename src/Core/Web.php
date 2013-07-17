@@ -33,11 +33,11 @@ class Core_Web
                 }
             }
         }
-        
+
         $strAction = $this->_arrCommandconf['action'];
 
         $this->_objCommand->$strAction();
-        
+
         foreach($this->_objPosthooks as $objPosthook) {
             $objPosthook->runPost();
         }
@@ -61,7 +61,7 @@ class Core_Web
             $this->_arrCommandconf  = App_Config_Command::get404command();
             $this->_objCommand      = App_Factory_Command::getCommand($this->_arrCommandconf['command']);
         }
-        
+
         $this->_objPrehooks     = new App_Web_Prehook();
         $this->_objPosthooks    = new App_Web_Posthook();
     }
