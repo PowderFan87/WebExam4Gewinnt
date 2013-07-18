@@ -25,9 +25,10 @@ class Core_Web_Template
     }
 
     public function __toString() {
-        $this->_txtOutput = preg_replace_callback('/#CONF:([\w].*?)#/', array($this, '_getConfreplacement'), $this->_txtOutput);
-        $this->_txtOutput = preg_replace_callback('/#TPL:([\w].*?)#/', array($this, '_getTplreplacement'), $this->_txtOutput);
-        $this->_txtOutput = preg_replace_callback('/#VAR:([\w].*?)#/', array($this, '_getVarreplacement'), $this->_txtOutput);
+        $this->_txtOutput = preg_replace_callback('/#CONF:([\w].*?)#/u', array($this, '_getConfreplacement'), $this->_txtOutput);
+        $this->_txtOutput = preg_replace_callback('/#TPL:([\w].*?)#/u', array($this, '_getTplreplacement'), $this->_txtOutput);
+        $this->_txtOutput = preg_replace_callback('/#FOREACH:([\w].*?)#(.*?)#\/FOREACH#/us', array($this, '_getForeachreplacement'), $this->_txtOutput);
+        $this->_txtOutput = preg_replace_callback('/#VAR:([\w].*?)#/u', array($this, '_getVarreplacement'), $this->_txtOutput);
 
         return $this->_txtOutput;
     }
@@ -44,5 +45,23 @@ class Core_Web_Template
         $objSubtemplate = new Core_Web_Template_Subtemplate($this->_objResponse->$arrMatch[1], $this->_objResponse);
 
         return (string)$objSubtemplate;
+    }
+
+    protected function _getForeachreplacement($arrMatch) {
+        $arrData    = $this->_objResponse->$arrMatch[1];
+        $txtTpl     = $arrMatch[2];
+        $txtOutput  = "";
+
+        foreach($arrData as $arrInput) {
+            $txtTmp = $txtTpl;
+
+            foreach($arrInput as $strKey => $mixValue) {
+                $txtTmp = str_replace("#VAR:$strKey#", $mixValue, $txtTmp);
+            }
+
+            $txtOutput .= "\n$txtTmp";
+        }
+
+        return $txtOutput;
     }
 }

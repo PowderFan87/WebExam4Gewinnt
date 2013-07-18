@@ -1,3 +1,20 @@
 
         <h1>#VAR:strWellcome#</h1>
-        
+
+        <table>
+            #FOREACH:arrTest#
+            <tr>
+                <td>#VAR:strTitle#</td>
+                <td>#VAR:strValue#</td>
+            </tr>
+            #/FOREACH#
+        </table>
+        <br />
+        <table>
+            #FOREACH:arrTest2#
+            <tr>
+                <td>#VAR:strVorname#</td>
+                <td>#VAR:strName#</td>
+            </tr>
+            #/FOREACH#
+        </table>
