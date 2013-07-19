@@ -20,7 +20,11 @@ class Command_XGame extends Core_Base_Command implements IXHttpRequest, IRestric
     }
 
     public function postGetlist() {
+        $this->_objResponse->setStrresponsetype(TPL_MODE_HTML_ACTION_ONLY);
 
+        $this->_objResponse->tplContent = 'XGame_POST_Getlist';
+
+        $this->_objResponse->arrGames = tblGame::getAllopen();
     }
 
     public function postRefreshgame() {

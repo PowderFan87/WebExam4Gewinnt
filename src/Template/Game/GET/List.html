@@ -2,20 +2,24 @@
         <h1>Offene Spiele</h1>
 
         <table class="ui-widget ui-widget-content">
-            <tr class="ui-widget-header ">
-                <th>#ID</th>
-                <th>Spielname</th>
-                <th></th>
-            </tr>
-            #FOREACH:arrGames#
-            <tr>
-                <td>#VAR:UID#</td>
-                <td>#VAR:strName#</td>
-                <td>
-                    <button class="btnJoin" ref="#VAR:UID#">Beitreten</button>
-                </td>
-            </tr>
-            #/FOREACH#
+            <thead>
+                <tr class="ui-widget-header ">
+                    <th>#ID</th>
+                    <th>Spielname</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="lisGame">
+                #FOREACH:arrGames#
+                <tr>
+                    <td>#VAR:UID#</td>
+                    <td>#VAR:strName#</td>
+                    <td>
+                        <button class="btnJoin" ref="#VAR:UID#">Beitreten</button>
+                    </td>
+                </tr>
+                #/FOREACH#
+            </tbody>
         </table>
 
         <div id="dialog-join" title="Beitreten?">
@@ -39,13 +43,35 @@
                             $(this).dialog("close");
                             alert("You are not joining game " + gid);
                         }
+                    },
+                    close: function() {
+                        lgl();
                     }
                 });
 
-                $(".btnJoin").click(function() {
+                ijb();
+                lgl();
+            });
+
+            function ijb() {
+                $("#lisGame .btnJoin").click(function() {
                     gid = $(this).attr("ref");
+
+                    window.clearInterval(ir);
 
                     $("#dialog-join").dialog("open");
                 });
-            });
+            }
+
+            function lgl() {
+                ir = window.setInterval(function(){
+                    $.post("/WebExam4Gewinnt/htdocs/XGame/Getlist", function(data){
+                        $("#lisGame").html(data);
+
+                        $("#lisGame input[type='submit'], button").button();
+
+                        ijb();
+                    });
+                }, 5000);
+            }
         </script>

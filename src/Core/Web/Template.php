@@ -20,6 +20,12 @@ class Core_Web_Template
         if(!($this instanceof Core_Web_Template_Subtemplate)) {
             if($this->_objResponse->getStrresponsetype() === TPL_MODE_HTML_FULL) {
                 $this->_txtOutput = file_get_contents(TPL_HTML_BASE);
+            } else if($this->_objResponse->getStrresponsetype() === TPL_MODE_HTML_ACTION_ONLY) {
+                if(file_exists(TEMPLATE_DIR . str_replace('_', DIRECTORY_SEPARATOR, $this->_objResponse->tplContent) . '.html')) {
+                    $this->_txtOutput = file_get_contents(TEMPLATE_DIR . str_replace('_', DIRECTORY_SEPARATOR, $this->_objResponse->tplContent) . '.html');
+                } else {
+                    var_dump('Can\'t find template "' . TEMPLATE_DIR . str_replace('_', DIRECTORY_SEPARATOR, $this->_objResponse->tplContent) . '.html' . '"');
+                }
             }
         }
     }
