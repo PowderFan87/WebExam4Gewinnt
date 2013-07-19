@@ -5,8 +5,15 @@
  *
  * @author Holger Szüsz <hszuesz@live.com>
  */
-class Command_Registrieren extends Core_Base_Command implements IHttpRequest
+class Command_Registrieren extends Core_Base_Command implements IHttpRequest, IRestricted
 {
+    public static function getRestriction() {
+        return 'App_Web_Security::notAuthenticated';
+    }
+
+    public function getFallback() {
+        $this->_objResponse->tplContent = 'Registrieren_GET_Fallback';
+    }
 
     public function getMain() {
         $this->_objResponse->tplContent = 'Registrieren_GET_Main';

@@ -13,6 +13,10 @@ class App_Web_Security
         return isset($_SESSION['loggedin']);
     }
 
+    public static function notAuthenticated() {
+        return !isset($_SESSION['loggedin']);
+    }
+
     public static function tryLogin($strUsername, $strPassword) {
         $objUser = tblUser::getUserbystrusername($strUsername);
 
