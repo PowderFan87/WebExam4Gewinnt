@@ -73,7 +73,7 @@ class Resource_DB_MySQL implements IResource
      * @return Array
      */
     public function readSingle($strQuery) {
-        return $this->read($strQuery, true);
+        return array_shift($this->read($strQuery, true));
     }
 
     public function update($arrFieldList, $strScope, $arrConditions = array()) {
@@ -165,9 +165,13 @@ class Resource_DB_MySQL implements IResource
      * @throws Resource_Exception
      */
     private function _toArray($objResultset) {
-        $arrRows = mysql_fetch_assoc($objResultset);
+        $arrRows = array();
 
-        if($arrRows === false) {
+        while ($arrRow = mysql_fetch_assoc($objResultset)) {
+            $arrRows[] = $arrRow;
+        }
+
+        if(empty($arrRows)) {
             throw new Resource_Exception('MySQL fetch assoc error: ' . mysql_error());
         }
 

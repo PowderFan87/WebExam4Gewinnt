@@ -1,7 +1,11 @@
 
         <h1>#VAR:strWellcome#</h1>
 
-        <table>
+        <table class="ui-widget ui-widget-content">
+            <tr class="ui-widget-header ">
+                <th>Title</th>
+                <th>Value</th>
+            </tr>
             #FOREACH:arrTest#
             <tr>
                 <td>#VAR:strTitle#</td>
@@ -10,7 +14,11 @@
             #/FOREACH#
         </table>
         <br />
-        <table>
+        <table class="ui-widget ui-widget-content">
+            <tr class="ui-widget-header ">
+                <th>Vorname</th>
+                <th>Nachname</th>
+            </tr>
             #FOREACH:arrTest2#
             <tr>
                 <td>#VAR:strVorname#</td>

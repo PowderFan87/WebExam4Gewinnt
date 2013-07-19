@@ -73,4 +73,8 @@ class App_Web_Security
 
         unset($this->_objUser);
     }
+
+    public function getObjuser() {
+        return $this->_objUser;
+    }
 }

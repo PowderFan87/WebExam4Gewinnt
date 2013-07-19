@@ -1,5 +1,51 @@
 
-        <h1>LOGGED IN!</h1>
+        <h1>Offene Spiele</h1>
 
-        <h3>List</h3>
-        
+        <table class="ui-widget ui-widget-content">
+            <tr class="ui-widget-header ">
+                <th>#ID</th>
+                <th>Spielname</th>
+                <th></th>
+            </tr>
+            #FOREACH:arrGames#
+            <tr>
+                <td>#VAR:UID#</td>
+                <td>#VAR:strName#</td>
+                <td>
+                    <button class="btnJoin" ref="#VAR:UID#">Beitreten</button>
+                </td>
+            </tr>
+            #/FOREACH#
+        </table>
+
+        <div id="dialog-join" title="Beitreten?">
+            Möchten Sie dem Spiel beitreten?
+        </div>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                gid = 0;
+
+                $("#dialog-join").dialog({
+                    autoOpen: false,
+                    resizable: false,
+                    modal: true,
+                    buttons: {
+                        "Ja": function() {
+                            $(this).dialog("close");
+                            alert("You are joining game " + gid);
+                        },
+                        "Nein": function() {
+                            $(this).dialog("close");
+                            alert("You are not joining game " + gid);
+                        }
+                    }
+                });
+
+                $(".btnJoin").click(function() {
+                    gid = $(this).attr("ref");
+
+                    $("#dialog-join").dialog("open");
+                });
+            });
+        </script>

@@ -1,0 +1,35 @@
+
+        <h1>Neues Spiel</h1>
+
+        <form method="post">
+            <table>
+                <tr>
+                    <th><label for="strName" class="#VAR:ERROR_strName#">Spielname:</label></th>
+                    <td>
+                        <input type="text" id="strName" name="strName" value="#VAR:strName#" class="text ui-widget-content ui-corner-all" />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="#VAR:ERROR_lngThemeid#">Farbschema: </th>
+                    <td>
+                        <div id="lngThemeid">
+                            <input type="radio" id="theme1" name="lngThemeid" value="0" /><label for="theme1">Rot/Gelb</label>
+                            <input type="radio" id="theme2" name="lngThemeid" value="1" /><label for="theme2">Grün/Lila</label>
+                            <input type="radio" id="theme3" name="lngThemeid" value="2" /><label for="theme3">Blau/Schwarz</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>&nbsp;</th>
+                    <td>
+                        <input type="submit" value="Spiel erstellen" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+        <script type="text/javascript">
+            $(document).ready(function(){
+               $("#lngThemeid").buttonset();
+            });
+        </script>
