@@ -65,7 +65,7 @@
 
             function lgl() {
                 ir = window.setInterval(function(){
-                    $.post("/WebExam4Gewinnt/htdocs/XGame/Getlist", function(data){
+                    $.post("#ROOT#/XGame/Getlist", function(data){
                         $("#lisGame").html(data);
 
                         $("#lisGame input[type='submit'], button").button();

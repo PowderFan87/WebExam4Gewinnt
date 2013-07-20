@@ -18,8 +18,6 @@ class App_Config_Command
 
                 $arrParts[] = $strPart;
             }
-            
-            App_Factory_Response::getResponse()->strBase = str_repeat("../", count($arrParts)-1);
 
             if(!is_array($arrParts) || count($arrParts) < 2) {
                 $arrParts[] = 'Main';
@@ -27,10 +25,10 @@ class App_Config_Command
 
             $arrCommandconf['action']   = self::_buildActionmethode(array_pop($arrParts), App_Factory_Request::getRequest());
             $arrCommandconf['command']  = 'Command_' . join('_', $arrParts);
-            
+
             if(in_array('IRestricted', class_implements($arrCommandconf['command']))) {
                 $strCommand = $arrCommandconf['command'];
-                
+
                 if(!call_user_func($strCommand::getRestriction())) {
                     $arrCommandconf['action']   = self::_buildActionmethode('Fallback', App_Factory_Request::getRequest());
                 }

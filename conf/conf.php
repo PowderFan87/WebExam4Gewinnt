@@ -29,6 +29,9 @@ define('RESOURCE_DB_PASSWORD',  'meinpw');
 // Security Config
 define('MD5_MOD', '4GeWiNnT');
 
+// Misc Config
+define('CFG_WEB_ROOT', '/WebExam4Gewinnt');
+
 // Hook configuration
 $GLOBALS['arrCFGPrehooks']  = array(
     'App_Hook_Security'
@@ -37,7 +40,7 @@ $GLOBALS['arrCFGPosthooks'] = array();
 
 // @TODO THIS IS JUST FOR MY XAMPP
 if(isset($_SERVER['REDIRECT_URL'])) {
-    $_SERVER['REDIRECT_URL'] = str_replace('/WebExam4Gewinnt/htdocs', '', $_SERVER['REDIRECT_URL']);
+    $_SERVER['REDIRECT_URL'] = str_replace(CFG_WEB_ROOT, '', $_SERVER['REDIRECT_URL']);
 }
 
 /**
