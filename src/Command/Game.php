@@ -22,13 +22,51 @@ class Command_Game extends Core_Base_Command implements IHttpRequest, IRestricte
         $this->_objResponse->tplContent = 'Game_GET_List';
 
         $this->_objResponse->strTitle .= ' - List';
-        $this->_objResponse->arrGames = tblGame::getAllopen();
+        $this->_objResponse->arrGames = tblGame::getAlljoinable();
     }
 
     public function getNeu() {
         $this->_objResponse->tplContent = 'Game_GET_Neu';
 
         $this->_objResponse->strTitle .= ' - Neues Spiel';
+    }
+
+    public function getSpielen() {
+        $this->_objResponse->tplContent = 'Game_GET_Spielen';
+
+        $this->_objResponse->strTitle .= ' - Spielen';
+
+        $objGame    = tblGame::getBypk($this->_objRequest->id);
+
+        if(!($objGame instanceof App_Data_Game) || $objGame->notAuthenticated()) {
+            $this->_objResponse->tplContent = 'Game_GET_Error';
+            $this->_objResponse->strMessage = 'Leider können wir das Spiel nicht finden';
+        } else {
+            $this->_objResponse->strGamename = $objGame->getstrName();
+        }
+    }
+
+    public function postBeitreten() {
+        $objGame    = tblGame::getBypk($this->_objRequest->uid);
+        $objUser    = App_Factory_Security::getSecurity()->getObjuser();
+
+        if(!($objGame instanceof App_Data_Game) || $objGame->getenmStatus() !== 'open' || $objUser->getUID() === $objGame->getlngPlayer1()) {
+            $this->_objResponse->tplContent = 'Game_POST_Error';
+            $this->_objResponse->strTitle   .= ' - Fehler';
+            $this->_objResponse->strMessage = 'Leider können Sie diesem Spiel nicht beitreten';
+        } else {
+            $objGame->setlngPlayer2($objUser->getUID());
+            $objGame->setenmStatus('started');
+            $objGame->setlngTurn(1);
+
+            if(!$objGame->doFullupdate()) {
+                $this->_objResponse->tplContent = 'Game_POST_Error';
+                $this->_objResponse->strTitle   .= ' - Fehler';
+                $this->_objResponse->strMessage = 'Fehler beim Beitreten. Bitte versuchen Sie er erneut.';
+            } else {
+                header('Location: ' . CFG_WEB_ROOT . '/Game/Spielen?id=' . $objGame->getUID());
+            }
+        }
     }
 
     public function postNeu() {

@@ -1,6 +1,7 @@
 
         <h1>Offene Spiele</h1>
 
+        <form id="join"></form>
         <table class="ui-widget ui-widget-content">
             <thead>
                 <tr class="ui-widget-header ">
@@ -15,7 +16,7 @@
                     <td>#VAR:UID#</td>
                     <td>#VAR:strName#</td>
                     <td>
-                        <button class="btnJoin" ref="#VAR:UID#">Beitreten</button>
+                        <button class="btnJoin" name="uid" value="#VAR:UID#" type="submit" form="join" formaction="#ROOT#/Game/Beitreten" formmethod="post">Beitreten</button>
                     </td>
                 </tr>
                 #/FOREACH#
@@ -36,12 +37,11 @@
                     modal: true,
                     buttons: {
                         "Ja": function() {
-                            $(this).dialog("close");
-                            alert("You are joining game " + gid);
+                            $("#lisGame .btnJoin[value='"+gid+"']").off("click.Dialog");
+                            $("#lisGame .btnJoin[value='"+gid+"']").trigger("click");
                         },
                         "Nein": function() {
                             $(this).dialog("close");
-                            alert("You are not joining game " + gid);
                         }
                     },
                     close: function() {
@@ -54,11 +54,10 @@
             });
 
             function ijb() {
-                $("#lisGame .btnJoin").click(function() {
-                    gid = $(this).attr("ref");
-
+                $("#lisGame .btnJoin").on('click.Dialog', function(e) {
+                    e.preventDefault();
+                    gid = $(this).attr("value");
                     window.clearInterval(ir);
-
                     $("#dialog-join").dialog("open");
                 });
             }
@@ -67,9 +66,7 @@
                 ir = window.setInterval(function(){
                     $.post("#ROOT#/XGame/Getlist", function(data){
                         $("#lisGame").html(data);
-
-                        $("#lisGame input[type='submit'], button").button();
-
+                        $("#lisGame button").button();
                         ijb();
                     });
                 }, 5000);

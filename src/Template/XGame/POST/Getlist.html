@@ -4,7 +4,7 @@
                 <td>#VAR:UID#</td>
                 <td>#VAR:strName#</td>
                 <td>
-                    <button class="btnJoin" ref="#VAR:UID#">Beitreten</button>
+                    <button class="btnJoin" name="uid" value="#VAR:UID#" type="submit" form="join" formaction="#ROOT#/Game/Beitreten" formmethod="post">Beitreten</button>
                 </td>
             </tr>
             #/FOREACH#

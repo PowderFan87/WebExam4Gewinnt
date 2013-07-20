@@ -11,7 +11,7 @@ class tblGame extends App_Data_Table_Base
     const TABLE_PK      = 'UID';
     const TABLE_ARCLASS = 'Game';
 
-    public static function getAllopen($blnObjects = false) {
+    public static function getAlljoinable($blnObjects = false) {
         $strARClass = 'App_Data_' . self::TABLE_ARCLASS;
         $strQuery   = '
 SELECT
@@ -20,6 +20,8 @@ FROM
     ' . self::TABLE_NAME . '
 WHERE
     enmStatus = "open"
+AND
+    lngPlayer1 != ' . App_Factory_Security::getSecurity()->getObjuser()->getUID() . '
 ';
 
         try {

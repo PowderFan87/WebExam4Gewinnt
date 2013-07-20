@@ -18,6 +18,16 @@ final class App_Data_Game extends App_Data_Base
         $this->setTxtgamegrid(serialize($arrGrid));
     }
 
+    public function notAuthenticated() {
+        $objUser = App_Factory_Security::getSecurity()->getObjuser();
+
+        if($objUser->getUID() !== $this->getlngPlayer1() && $objUser->getUID() !== $this->getlngPlayer2()) {
+            return true;
+        }
+
+        return false;
+    }
+
     protected function getEmpryarray() {
         return array(
             'strName'       => '',

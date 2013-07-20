@@ -24,7 +24,7 @@ class Command_XGame extends Core_Base_Command implements IXHttpRequest, IRestric
 
         $this->_objResponse->tplContent = 'XGame_POST_Getlist';
 
-        $this->_objResponse->arrGames = tblGame::getAllopen();
+        $this->_objResponse->arrGames = tblGame::getAlljoinable();
     }
 
     public function postRefreshgame() {
