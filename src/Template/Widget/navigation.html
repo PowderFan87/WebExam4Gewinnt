@@ -1,0 +1,11 @@
+
+                <a href="#ROOT#">Home</a>
+                #IF:isset($_SESSION['loggedin'])#
+                <a href="#ROOT#/Login/Logout">Logout</a>
+                <a href="#ROOT#/Game/List">Spiele</a>
+                <a href="#ROOT#/Spieler">Spieler</a>
+                #/IF#
+                #IF:!isset($_SESSION['loggedin'])#
+                <a href="#ROOT#/Login">Login</a>
+                <a href="#ROOT#/Registrieren">Registrieren</a>
+                #/IF#

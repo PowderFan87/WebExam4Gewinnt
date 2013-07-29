@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_NOTICE);
+error_reporting(E_WARNING);
 ini_set('display_errors', '1');
 
 // Basic project directory

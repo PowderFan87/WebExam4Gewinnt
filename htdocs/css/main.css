@@ -7,7 +7,48 @@
 */
 
 * {
-    font-family: "Trebuchet MS";
+    font-family: "Arial Black";
+}
+
+body {
+    padding: 50px 100px;
+    background-color: gray;
+}
+
+header, section, footer {
+    background-color: #FFFFFF;
+    margin-bottom: 50px;
+
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+
+    -webkit-box-shadow: 0px 0px 10px 5px #FFFFFF, 0px 0px 10px 10px #FFFFFF;
+    -moz-box-shadow: 0px 0px 10px 5px #FFFFFF, 0px 0px 10px 10px #FFFFFF;
+    -o-box-shadow: 0px 0px 10px 5px #FFFFFF, 0px 0px 10px 10px #FFFFFF;
+    box-shadow: 0px 0px 10px 5px #FFFFFF, 0px 0px 10px 10px #FFFFFF;
+}
+
+h1,
+nav a,
+nav a:visited,
+nav a:active,
+nav a:focus,
+nav a:hover {
+    font-family: 'Audiowide', cursive;
+    color: #000000;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+nav a:hover {
+    color: #FF0000;
+
+    -webkit-text-shadow: 0px 0px 25px #E3001B;
+    -moz-text-shadow: 0px 0px 25px #E3001B;
+    -o-text-shadow: 0px 0px 25px #E3001B;
+    text-shadow: 0px 0px 25px #E3001B;
 }
 
 .error {

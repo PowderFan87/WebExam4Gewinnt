@@ -32,22 +32,18 @@ class Core_Web_Template
 
     public function __toString() {
         $this->_txtOutput = str_replace("#ROOT#", CFG_WEB_ROOT, $this->_txtOutput);
-        
-        $this->_txtOutput = preg_replace_callback('/#CONST:([\w].*?)#/u', array($this, '_getConstreplacement'), $this->_txtOutput);
-        $this->_txtOutput = preg_replace_callback('/#CONF:([\w].*?)#/u', array($this, '_getConfreplacement'), $this->_txtOutput);
-        $this->_txtOutput = preg_replace_callback('/#TPL:([\w].*?)#/u', array($this, '_getTplreplacement'), $this->_txtOutput);
-        $this->_txtOutput = preg_replace_callback('/#FOREACH:([\w].*?)#(.*?)#\/FOREACH#/us', array($this, '_getForeachreplacement'), $this->_txtOutput);
-        $this->_txtOutput = preg_replace_callback('/#VAR:([\w].*?)#/u', array($this, '_getVarreplacement'), $this->_txtOutput);
+
+        $this->_txtOutput = preg_replace_callback('/#CONST:([\w]*?)#/u', array($this, '_getConstreplacement'), $this->_txtOutput);
+        $this->_txtOutput = preg_replace_callback('/#TPL:([\w]*?)#/u', array($this, '_getTplreplacement'), $this->_txtOutput);
+        $this->_txtOutput = preg_replace_callback('/#FOREACH:([\w]*?)#(.*?)#\/FOREACH#/us', array($this, '_getForeachreplacement'), $this->_txtOutput);
+        $this->_txtOutput = preg_replace_callback('/#IF:([!=<>:\-\(\)\$\[\]\'\w]*?)#(.*?)#\/IF#/us', array($this, '_getIfreplacement'), $this->_txtOutput);
+        $this->_txtOutput = preg_replace_callback('/#VAR:([\w]*?)#/u', array($this, '_getVarreplacement'), $this->_txtOutput);
 
         return $this->_txtOutput;
     }
 
     protected function _getConstreplacement($arrMatch) {
         return constant($arrMatch[1]);
-    }
-
-    protected function _getConfreplacement($arrMatch) {
-        return $this->_objResponse->$arrMatch[1];
     }
 
     protected function _getVarreplacement($arrMatch) {
@@ -58,6 +54,18 @@ class Core_Web_Template
         $objSubtemplate = new Core_Web_Template_Subtemplate($this->_objResponse->$arrMatch[1], $this->_objResponse);
 
         return (string)$objSubtemplate;
+    }
+
+    protected function _getIfreplacement($arrMatch) {
+        $blnResult = false;
+
+        eval('$blnResult = (' . $arrMatch[1] . ');');
+
+        if($blnResult) {
+            return $arrMatch[2];
+        } else {
+            return "";
+        }
     }
 
     protected function _getForeachreplacement($arrMatch) {
