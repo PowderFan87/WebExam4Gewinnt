@@ -1,8 +1,7 @@
 
-        <h1>Offene Spiele</h1>
+        <h1>Eigene Laufende Spiele</h1>
 
         #IF:is_array($this->_objResponse->arrGames)#
-        <form id="join"></form>
         <table class="ui-widget ui-widget-content">
             <thead>
                 <tr class="ui-widget-header ">
@@ -17,64 +16,48 @@
                     <td>#VAR:UID#</td>
                     <td>#VAR:strName#</td>
                     <td>
-                        <button class="btnJoin" name="uid" value="#VAR:UID#" type="submit" form="join" formaction="#ROOT#/Game/Beitreten" formmethod="post">Beitreten</button>
+                        <button class="btnEnter" value="#VAR:UID#">Betreten</button>
                     </td>
                 </tr>
                 #/FOREACH#
             </tbody>
         </table>
 
-        <div id="dialog-join" title="Beitreten?">
-            Möchten Sie dem Spiel beitreten?
+        <div id="dialog-enter" title="Betreten?">
+            Möchten Sie das Spiel betreten?
         </div>
 
         <script type="text/javascript">
             $(document).ready(function() {
                 gid = 0;
 
-                $("#dialog-join").dialog({
+                $("#dialog-enter").dialog({
                     autoOpen: false,
                     resizable: false,
                     modal: true,
                     buttons: {
                         "Ja": function() {
-                            $("#lisGame .btnJoin[value='"+gid+"']").off("click.Dialog");
-                            $("#lisGame .btnJoin[value='"+gid+"']").trigger("click");
+                            window.location.href = "#ROOT#/Game/Spielen?uid=" + gid;
                         },
                         "Nein": function() {
                             $(this).dialog("close");
                         }
-                    },
-                    close: function() {
-                        lgl();
                     }
                 });
 
                 ijb();
-                lgl();
             });
 
             function ijb() {
-                $("#lisGame .btnJoin").on('click.Dialog', function(e) {
+                $("#lisGame .btnEnter").on('click.Dialog', function(e) {
                     e.preventDefault();
                     gid = $(this).attr("value");
-                    window.clearInterval(ir);
-                    $("#dialog-join").dialog("open");
+                    $("#dialog-enter").dialog("open");
                 });
-            }
-
-            function lgl() {
-                ir = window.setInterval(function(){
-                    $.post("#ROOT#/XGame/Getlist", function(data){
-                        $("#lisGame").html(data);
-                        $("#lisGame button").button();
-                        ijb();
-                    });
-                }, 5000);
             }
         </script>
         #/IF#
         
         #IF:!is_array($this->_objResponse->arrGames)#
-        <h3>Derzeit keine offenen Spiele</h3>
+        <h3>Derzeit keine laufenden Spiele</h3>
         #/IF#

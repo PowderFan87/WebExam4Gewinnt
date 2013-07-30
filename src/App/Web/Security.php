@@ -20,7 +20,7 @@ class App_Web_Security
     public static function tryLogin($strUsername, $strPassword) {
         $objUser = tblUser::getUserbystrusername($strUsername);
 
-        if(md5(MD5_MOD . $strPassword) === $objUser->getstrPassword()) {
+        if(md5(MD5_MOD . $strPassword) === $objUser->getstrPassword() && $objUser->getblnActivated() == 1) {
             self::loginUser($objUser);
 
             var_dump("User is logged in!");

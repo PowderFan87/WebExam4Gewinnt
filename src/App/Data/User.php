@@ -21,4 +21,12 @@ final class App_Data_User extends App_Data_Base
             'blnActivated'  => false
         );
     }
+    
+    /**
+     * 
+     * @return App_Data_Userprofile
+     */
+    public function getUserprofile() {
+        return tblUserprofile::getUserprofilebylnguser($this->getUID());
+    }
 }

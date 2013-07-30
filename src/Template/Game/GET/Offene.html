@@ -1,8 +1,8 @@
 
-        <h1>Offene Spiele</h1>
+        <h1>Eigene Offene Spiele</h1>
 
         #IF:is_array($this->_objResponse->arrGames)#
-        <form id="join"></form>
+        <form id="close"></form>
         <table class="ui-widget ui-widget-content">
             <thead>
                 <tr class="ui-widget-header ">
@@ -17,60 +17,45 @@
                     <td>#VAR:UID#</td>
                     <td>#VAR:strName#</td>
                     <td>
-                        <button class="btnJoin" name="uid" value="#VAR:UID#" type="submit" form="join" formaction="#ROOT#/Game/Beitreten" formmethod="post">Beitreten</button>
+                        <button class="btnClose" name="uid" value="#VAR:UID#" type="submit" form="close" formaction="#ROOT#/Game/Schliessen" formmethod="post">Schließen</button>
                     </td>
                 </tr>
                 #/FOREACH#
             </tbody>
         </table>
 
-        <div id="dialog-join" title="Beitreten?">
-            Möchten Sie dem Spiel beitreten?
+        <div id="dialog-close" title="Schließen?">
+            Möchten Sie das Spiel schließen?
         </div>
 
         <script type="text/javascript">
             $(document).ready(function() {
                 gid = 0;
 
-                $("#dialog-join").dialog({
+                $("#dialog-close").dialog({
                     autoOpen: false,
                     resizable: false,
                     modal: true,
                     buttons: {
                         "Ja": function() {
-                            $("#lisGame .btnJoin[value='"+gid+"']").off("click.Dialog");
-                            $("#lisGame .btnJoin[value='"+gid+"']").trigger("click");
+                            $("#lisGame .btnClose[value='"+gid+"']").off("click.Dialog");
+                            $("#lisGame .btnClose[value='"+gid+"']").trigger("click");
                         },
                         "Nein": function() {
                             $(this).dialog("close");
                         }
-                    },
-                    close: function() {
-                        lgl();
                     }
                 });
 
                 ijb();
-                lgl();
             });
 
             function ijb() {
-                $("#lisGame .btnJoin").on('click.Dialog', function(e) {
+                $("#lisGame .btnClose").on('click.Dialog', function(e) {
                     e.preventDefault();
                     gid = $(this).attr("value");
-                    window.clearInterval(ir);
-                    $("#dialog-join").dialog("open");
+                    $("#dialog-close").dialog("open");
                 });
-            }
-
-            function lgl() {
-                ir = window.setInterval(function(){
-                    $.post("#ROOT#/XGame/Getlist", function(data){
-                        $("#lisGame").html(data);
-                        $("#lisGame button").button();
-                        ijb();
-                    });
-                }, 5000);
             }
         </script>
         #/IF#

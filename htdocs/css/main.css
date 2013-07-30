@@ -15,7 +15,7 @@ body {
     background-color: gray;
 }
 
-header, section, footer {
+header, section, footer, nav div nav.sub {
     background-color: #FFFFFF;
     margin-bottom: 50px;
 
@@ -39,7 +39,7 @@ nav a:hover {
     font-family: 'Audiowide', cursive;
     color: #000000;
     text-decoration: none;
-    margin-right: 10px;
+    margin-right: 20px;
 }
 
 nav a:hover {
@@ -51,6 +51,28 @@ nav a:hover {
     text-shadow: 0px 0px 25px #E3001B;
 }
 
+nav div, nav a {
+    float: left;
+}
+
+nav div nav.sub {
+    position: absolute;
+    background-color: #FFFFFF;
+    padding-top: 5px;
+    padding-left: 10px;
+    margin-left: -10px;
+    display: none;
+    
+    -webkit-box-shadow: 0px 0px 10px 5px #FFFFFF, 0px 10px 10px 0px #FFFFFF;
+    -moz-box-shadow: 0px 0px 10px 5px #FFFFFF, 0px 10px 10px 0px #FFFFFF;
+    -o-box-shadow: 0px 0px 10px 5px #FFFFFF, 0px 10px 10px 0px #FFFFFF;
+    box-shadow: 0px 0px 10px 5px #FFFFFF, 0px 10px 10px 0px #FFFFFF;
+}
+
 .error {
     color: red;
+}
+
+th {
+    text-align: left;
 }

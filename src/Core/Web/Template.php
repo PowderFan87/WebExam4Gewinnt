@@ -35,8 +35,8 @@ class Core_Web_Template
 
         $this->_txtOutput = preg_replace_callback('/#CONST:([\w]*?)#/u', array($this, '_getConstreplacement'), $this->_txtOutput);
         $this->_txtOutput = preg_replace_callback('/#TPL:([\w]*?)#/u', array($this, '_getTplreplacement'), $this->_txtOutput);
-        $this->_txtOutput = preg_replace_callback('/#FOREACH:([\w]*?)#(.*?)#\/FOREACH#/us', array($this, '_getForeachreplacement'), $this->_txtOutput);
         $this->_txtOutput = preg_replace_callback('/#IF:([!=<>:\-\(\)\$\[\]\'\w]*?)#(.*?)#\/IF#/us', array($this, '_getIfreplacement'), $this->_txtOutput);
+        $this->_txtOutput = preg_replace_callback('/#FOREACH:([\w]*?)#(.*?)#\/FOREACH#/us', array($this, '_getForeachreplacement'), $this->_txtOutput);
         $this->_txtOutput = preg_replace_callback('/#VAR:([\w]*?)#/u', array($this, '_getVarreplacement'), $this->_txtOutput);
 
         return $this->_txtOutput;

@@ -36,7 +36,7 @@ class Command_Game extends Core_Base_Command implements IHttpRequest, IRestricte
 
         $this->_objResponse->strTitle .= ' - Spielen';
 
-        $objGame    = tblGame::getBypk($this->_objRequest->id);
+        $objGame = tblGame::getBypk($this->_objRequest->uid);
 
         if(!($objGame instanceof App_Data_Game) || $objGame->notAuthenticated()) {
             $this->_objResponse->tplContent = 'Game_GET_Error';
@@ -44,6 +44,20 @@ class Command_Game extends Core_Base_Command implements IHttpRequest, IRestricte
         } else {
             $this->_objResponse->strGamename = $objGame->getstrName();
         }
+    }
+    
+    public function getOffene() {
+        $this->_objResponse->tplContent = 'Game_GET_Offene';
+
+        $this->_objResponse->strTitle .= ' - Eigene offene Spiele';
+        $this->_objResponse->arrGames = tblGame::getAllownopen();
+    }
+    
+    public function getLaufende() {
+        $this->_objResponse->tplContent = 'Game_GET_Laufende';
+
+        $this->_objResponse->strTitle .= ' - Eigene laufende Spiele';
+        $this->_objResponse->arrGames = tblGame::getAllownrunning();
     }
 
     public function postBeitreten() {
@@ -65,6 +79,28 @@ class Command_Game extends Core_Base_Command implements IHttpRequest, IRestricte
                 $this->_objResponse->strMessage = 'Fehler beim Beitreten. Bitte versuchen Sie er erneut.';
             } else {
                 header('Location: ' . CFG_WEB_ROOT . '/Game/Spielen?id=' . $objGame->getUID());
+            }
+        }
+    }
+    
+    public function postSchliessen() {
+        $objGame    = tblGame::getBypk($this->_objRequest->uid);
+        
+        if(!($objGame instanceof App_Data_Game) || $objGame->notAuthenticated()) {
+            $this->_objResponse->tplContent = 'Game_POST_Error';
+            $this->_objResponse->strTitle   .= ' - Fehler';
+            $this->_objResponse->strMessage = 'Leider können Sie das Spiel nicht schließen';
+        } else {
+            $objGame->setenmStatus('closed');
+            
+            if(!$objGame->doFullupdate()) {
+                $this->_objResponse->tplContent = 'Game_POST_Error';
+                $this->_objResponse->strTitle   .= ' - Fehler';
+                $this->_objResponse->strMessage = 'Fehler beim Schließen. Bitte versuchen Sie er erneut.';
+            } else {
+                $this->_objResponse->tplContent = 'Game_POST_Schliessen';
+                $this->_objResponse->strTitle   .= ' - Geschlossen';
+                $this->_objResponse->strMessage = 'Spiel wurde geschlossen.';
             }
         }
     }

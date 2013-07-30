@@ -42,4 +42,72 @@ AND
             return NULL;
         }
     }
+    
+    public static function getAllownopen($blnObjects = false) {
+        $strARClass = 'App_Data_' . self::TABLE_ARCLASS;
+        $strQuery   = '
+SELECT
+    *
+FROM
+    ' . self::TABLE_NAME . '
+WHERE
+    enmStatus = "open"
+AND
+    lngPlayer1 = ' . App_Factory_Security::getSecurity()->getObjuser()->getUID() . '
+';
+
+        try {
+            $arrData        = App_Factory_Resource::getResource()->read($strQuery, true);
+
+            if($blnObjects) {
+                $arrResponse    = array();
+
+                foreach($arrData as $arrRow) {
+                    $arrResponse[] = new $strARClass($arrRow);
+                }
+
+                return $arrResponse;
+            } else {
+                return $arrData;
+            }
+        } catch (Resource_Exception $e) {
+            return NULL;
+        }
+    }
+    
+    public static function getAllownrunning($blnObjects = false) {
+        $strARClass = 'App_Data_' . self::TABLE_ARCLASS;
+        $strQuery   = '
+SELECT
+    *
+FROM
+    ' . self::TABLE_NAME . '
+WHERE
+    enmStatus = "started"
+AND
+    (
+        lngPlayer1 = ' . App_Factory_Security::getSecurity()->getObjuser()->getUID() . '
+        OR
+        lngPlayer2 = ' . App_Factory_Security::getSecurity()->getObjuser()->getUID() . '
+    )
+';
+
+        try {
+            $arrData        = App_Factory_Resource::getResource()->read($strQuery, true);
+
+            if($blnObjects) {
+                $arrResponse    = array();
+
+                foreach($arrData as $arrRow) {
+                    $arrResponse[] = new $strARClass($arrRow);
+                }
+
+                return $arrResponse;
+            } else {
+                return $arrData;
+            }
+        } catch (Resource_Exception $e) {
+            return NULL;
+        }
+    }
 }

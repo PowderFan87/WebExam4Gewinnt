@@ -2,10 +2,27 @@
                 <a href="#ROOT#">Home</a>
                 #IF:isset($_SESSION['loggedin'])#
                 <a href="#ROOT#/Login/Logout">Logout</a>
-                <a href="#ROOT#/Game/List">Spiele</a>
-                <a href="#ROOT#/Spieler">Spieler</a>
+                <div class="sub">
+                    <a href="#ROOT#/Game/List" title="games">Spiele</a>
+                    <br />
+                    <nav class="sub">
+                        <a href="#ROOT#/Game/Neu">Neu</a>
+                        <a href="#ROOT#/Game/Offene">Offene</a>
+                        <a href="#ROOT#/Game/Laufende">Laufende</a>
+                    </nav>
+                </div>
+                <div class="sub">
+                    <a href="#ROOT#/Spieler" title="player">Spieler</a>
+                    <br />
+                    <nav class="sub">
+                        <a href="#ROOT#/Freunde">Freunde</a>
+                        <a href="#ROOT#/Suche">Suche</a>
+                    </nav>
+                </div>
                 #/IF#
                 #IF:!isset($_SESSION['loggedin'])#
                 <a href="#ROOT#/Login">Login</a>
                 <a href="#ROOT#/Registrieren">Registrieren</a>
                 #/IF#
+                
+                <br clear="all" />

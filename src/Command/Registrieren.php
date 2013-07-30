@@ -119,7 +119,7 @@ TXT;
             $arrErrors['strPassword'] = true;
         }
 
-        if(!App_Tools_Validator::areEqual($this->_objRequest->strPassword, $this->_objRequest->strPassword_reenter)) {
+        if(!App_Tools_Validator::areEqual($this->_objRequest->strPassword, $this->_objRequest->strPassword_reenter) || !App_Tools_Validator::notEmpty($this->_objRequest->strPassword_reenter)) {
             $arrErrors['strPassword_reenter'] = true;
         }
 
