@@ -13,7 +13,7 @@ class App_Web_Posthook extends Core_Base_Hook
         foreach($GLOBALS['arrCFGPosthooks'] as $strHookclass) {
             $objHook = new $strHookclass();
             
-            if($objHook instanceof IHook) {
+            if($objHook instanceof IPosthook) {
                 $this->_arrElements[] = $objHook;
             }
         }

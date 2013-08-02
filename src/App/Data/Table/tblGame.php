@@ -110,4 +110,63 @@ AND
             return NULL;
         }
     }
+    
+    public static function Getrunninggamecount() {
+        $strQueryopen   = '
+SELECT
+    COUNT(*) as lngGamesopen
+FROM
+    ' . self::TABLE_NAME . '
+WHERE
+    enmStatus = "started"
+AND
+    (
+        lngPlayer1 = ' . App_Factory_Security::getSecurity()->getObjuser()->getUID() . '
+        OR
+        lngPlayer2 = ' . App_Factory_Security::getSecurity()->getObjuser()->getUID() . '
+    )
+';
+        
+        $strQueryturn   = '
+SELECT
+    COUNT(*) as lngGamesturn
+FROM
+    ' . self::TABLE_NAME . '
+WHERE
+    enmStatus = "started"
+AND
+    (
+        (
+            lngPlayer1 = ' . App_Factory_Security::getSecurity()->getObjuser()->getUID() . '
+            AND
+            (lngTurn % 2) != 0
+        )
+        OR
+        (
+            lngPlayer2 = ' . App_Factory_Security::getSecurity()->getObjuser()->getUID() . '
+            AND
+            (lngTurn % 2) = 0
+        )
+    )
+';
+        
+        $arrCounts = array(
+            'lngGamesopen' => 0,
+            'lngGamesturn' => 0
+        );
+        
+        try {
+            $arrData = App_Factory_Resource::getResource()->readSingle($strQueryopen);
+            
+            $arrCounts['lngGamesopen'] = $arrData['lngGamesopen'];
+            
+            $arrData = App_Factory_Resource::getResource()->readSingle($strQueryturn);
+            
+            $arrCounts['lngGamesturn'] = $arrData['lngGamesturn'];
+            
+            return $arrCounts;
+        } catch (Resource_Exception $e) {
+            return $arrCounts;
+        }
+    }
 }

@@ -22,12 +22,11 @@ class App_Web_Security
 
         if(md5(MD5_MOD . $strPassword) === $objUser->getstrPassword() && $objUser->getblnActivated() == 1) {
             self::loginUser($objUser);
-
-            var_dump("User is logged in!");
-            var_dump($_SESSION);
-        } else {
-            var_dump("User not valid");
+            
+            return true;
         }
+        
+        return false;
     }
 
     private static function loginUser($objUser) {
@@ -78,6 +77,10 @@ class App_Web_Security
         unset($this->_objUser);
     }
 
+    /**
+     * 
+     * @return App_Data_User
+     */
     public function getObjuser() {
         return $this->_objUser;
     }

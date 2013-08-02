@@ -1,0 +1,40 @@
+            
+            #IF:isset($_SESSION['loggedin'])#
+            <section id="infoWidget">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="iconText">
+                                <span class="fl ui-icon ui-icon-person"></span> Online:
+                                <br clear="all" />
+                            </div>
+                        </td>
+                        <td>
+                            #VAR:lngOnline#
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="iconText">
+                                <span class="fl ui-icon ui-icon-arrowreturnthick-1-e"></span> Spiele:
+                                <br clear="all" />
+                            </div>
+                        </td>
+                        <td>
+                            #VAR:lngGamesturn# / #VAR:lngGamesopen#
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="iconText">
+                                <span class="fl ui-icon ui-icon-mail-open"></span> Nachrichten:
+                                <br clear="all" />
+                            </div>
+                        </td>
+                        <td>
+                            #VAR:lngMessages#
+                        </td>
+                    </tr>
+                </table>
+            </section>
+            #/IF#

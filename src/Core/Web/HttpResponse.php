@@ -12,5 +12,6 @@ class Core_Web_HttpResponse extends Core_Web_Response
         parent::__construct();
 
         $this->tplNavigation = "Widget_navigation";
+        $this->tplInfowidget = "Widget_info";
     }
 }

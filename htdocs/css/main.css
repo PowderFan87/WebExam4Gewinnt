@@ -76,3 +76,15 @@ nav div nav.sub {
 th {
     text-align: left;
 }
+
+#infoWidget {
+    float: right;
+    width: 200px;
+    margin: 5px 10px 0px 0px;
+}
+
+.fl { float: left; }
+
+.iconText .ui-icon {
+    margin-top: 4px;
+}

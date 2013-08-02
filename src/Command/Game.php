@@ -14,7 +14,7 @@ class Command_Game extends Core_Base_Command implements IHttpRequest, IRestricte
     public function getFallback() {
         $this->_objResponse->tplContent = 'Game_GET_Fallback';
 
-        $this->_objResponse->strFoo = 'HOHOHO';
+        $this->_objResponse->strFoo = 'You are not logged in';
         $this->_objResponse->strTitle .= ' - Not logged in';
     }
 

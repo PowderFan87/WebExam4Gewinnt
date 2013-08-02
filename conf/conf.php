@@ -36,7 +36,10 @@ define('CFG_WEB_ROOT', '/WebExam4Gewinnt');
 $GLOBALS['arrCFGPrehooks']  = array(
     'App_Hook_Security'
 );
-$GLOBALS['arrCFGPosthooks'] = array();
+$GLOBALS['arrCFGPosthooks'] = array(
+    'App_Hook_Infowidget',
+    'App_Hook_User'
+);
 
 // @TODO THIS IS JUST FOR MY XAMPP
 if(isset($_SERVER['REDIRECT_URL'])) {
