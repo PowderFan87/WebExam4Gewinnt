@@ -28,7 +28,7 @@ class Core_Web
             try {
                 $objPrehook->runPre();
             } catch(App_Hook_Security_Exception $e) {
-                if($e->getMessage() === 'Invalid IP for Session') {
+                if($e->getMessage() === 'Invalid IP for Session' || $e->getMessage() === 'Timout because inactive') {
                     App_Factory_Security::getSecurity()->doDestroysession();
                 }
             }

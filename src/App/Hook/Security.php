@@ -14,6 +14,8 @@ class App_Hook_Security implements IPrehook
             throw new App_Hook_Security_Exception('Invalid IP for Session');
         }
         
-        
+        if(!$objSecurity->doTimeoutcheck()) {
+            throw new App_Hook_Security_Exception('Timout because inactive');
+        }
     }
 }
