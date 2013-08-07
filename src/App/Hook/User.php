@@ -10,7 +10,9 @@ class App_Hook_User implements IPosthook
     public function runPost() {
         $objUser = App_Factory_Security::getSecurity()->getObjuser();
         
-        $objUser->setdtmLastaction(date('Y-m-d H:i:s'));
-        $objUser->doFullupdate();
+        if($objUser instanceof App_Data_User) {
+            $objUser->setdtmLastaction(date('Y-m-d H:i:s'));
+            $objUser->doFullupdate();
+        }
     }
 }

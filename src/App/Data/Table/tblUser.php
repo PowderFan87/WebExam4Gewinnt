@@ -47,9 +47,9 @@ WHERE
 AND
     blnLoggedin = 1
 AND
-    dtmLastaction < \'' . date('Y-m-d H:i:s', strtotime("-1 Hour")) . '\'
+    dtmLastaction > \'' . date('Y-m-d H:i:s', strtotime("-30 Minutes")) . '\'
 ';
-        
+
         try {
             $arrData = App_Factory_Resource::getResource()->readSingle($strQuery);
 

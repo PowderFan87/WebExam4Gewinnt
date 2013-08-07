@@ -11,7 +11,7 @@
 }
 
 body {
-    padding: 50px 100px;
+    padding: 0px 100px;
     background-color: gray;
 }
 
@@ -87,4 +87,50 @@ th {
 
 .iconText .ui-icon {
     margin-top: 4px;
+}
+
+/* Game css */
+#gamegrid {
+    width: 700px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #2973C8;
+    float: left;
+    background-color: #2973C8;
+}
+
+#gamegrid .row {
+    float: left;
+}
+
+.hasturn .row {
+    cursor: pointer;
+}
+
+#gamegrid .row .field {
+    width: 88px;
+    height: 88px;
+    margin: 5px;
+    border: 1px solid #2973C8;
+    
+    -webkit-border-radius: 44px;
+    -moz-border-radius: 44px;
+    -o-border-radius: 44px;
+    border-radius: 44px;
+}
+
+#gameinfo {
+    width: 250px;
+    background-color: #0000FF;
+    float: left;
+}
+
+.theme0 .coin0 {
+    background-color: #FFFFFF;
+}
+.theme0 .coin1 {
+    background-color: #F22F29;
+}
+.theme0 .coin2 {
+    background-color: #F7F224;
 }

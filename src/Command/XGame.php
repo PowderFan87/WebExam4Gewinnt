@@ -34,6 +34,24 @@ class Command_XGame extends Core_Base_Command implements IXHttpRequest, IRestric
     public function postMove() {
 
     }
+    
+    public function postData() {
+        $this->_objResponse->setStrresponsetype(TPL_MODE_JSON);
+
+        $objGame = tblGame::getBypk($this->_objRequest->uid);
+
+        if(!($objGame instanceof App_Data_Game) || $objGame->notAuthenticated()) {
+            header("HTTP/1.0 401 Unauthorized");
+        } else {
+            $arrJSON = array();
+            
+            $arrJSON['turn'] = $objGame->getlngTurn();
+            $arrJSON['grid'] = $objGame->getArrgamegrid();
+            $arrJSON['last'] = $objGame->getstrLastchange();
+            
+            $this->_objResponse->txtJSON = json_encode($arrJSON);
+        }
+    }
 
     protected function _doInit() {
         ;

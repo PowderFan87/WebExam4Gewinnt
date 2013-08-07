@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_WARNING);
+error_reporting(E_NOTICE);
 ini_set('display_errors', '1');
 
 // Basic project directory
@@ -16,6 +16,7 @@ define('TPL_MODE_HTML_FULL',        'html/full');
 define('TPL_MODE_HTML_ACTION_ONLY', 'html/action');
 define('TPL_MODE_JSON',             'json');
 define('TPL_HTML_BASE',             TEMPLATE_DIR . 'base.html');
+define('TPL_JSON_BASE',             TEMPLATE_DIR . 'jsonBase.html');
 
 // Resource Config
 define('RESOURCE_TYPE',         'DB');

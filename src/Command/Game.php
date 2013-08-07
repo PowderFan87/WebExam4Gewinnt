@@ -42,7 +42,15 @@ class Command_Game extends Core_Base_Command implements IHttpRequest, IRestricte
             $this->_objResponse->tplContent = 'Game_GET_Error';
             $this->_objResponse->strMessage = 'Leider können wir das Spiel nicht finden';
         } else {
-            $this->_objResponse->strGamename = $objGame->getstrName();
+            $this->_objResponse->lngGameid      = $objGame->getUID();
+            $this->_objResponse->strGamename    = $objGame->getstrName();
+            $this->_objResponse->lngThemeid     = $objGame->getlngThemeid();
+            
+            $lngPlayertype = $objGame->getPlayertype();
+            
+            if(($lngPlayertype === 1 && ($objGame->getlngTurn() % 2 !== 0)) || ($lngPlayertype === 2 && ($objGame->getlngTurn() % 2 === 0))) {
+                $this->_objResponse->strHasturn = 'hasturn';
+            }
         }
     }
     

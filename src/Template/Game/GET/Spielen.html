@@ -1,4 +1,80 @@
 
         <h1>#VAR:strGamename#</h1>
-
         
+        <div id="gamegrid" class="theme#VAR:lngThemeid# #VAR:strHasturn#">
+            <div id="r0" class="row">
+                <div id="f05" class="field"></div>
+                <div id="f04" class="field"></div>
+                <div id="f03" class="field"></div>
+                <div id="f02" class="field"></div>
+                <div id="f01" class="field"></div>
+                <div id="f00" class="field"></div>
+            </div>
+            <div id="r1" class="row">
+                <div id="f15" class="field"></div>
+                <div id="f14" class="field"></div>
+                <div id="f13" class="field"></div>
+                <div id="f12" class="field"></div>
+                <div id="f11" class="field"></div>
+                <div id="f10" class="field"></div>
+            </div>
+            <div id="r2" class="row">
+                <div id="f25" class="field"></div>
+                <div id="f24" class="field"></div>
+                <div id="f23" class="field"></div>
+                <div id="f22" class="field"></div>
+                <div id="f21" class="field"></div>
+                <div id="f20" class="field"></div>
+            </div>
+            <div id="r3" class="row">
+                <div id="f35" class="field"></div>
+                <div id="f34" class="field"></div>
+                <div id="f33" class="field"></div>
+                <div id="f32" class="field"></div>
+                <div id="f31" class="field"></div>
+                <div id="f30" class="field"></div>
+            </div>
+            <div id="r4" class="row">
+                <div id="f45" class="field"></div>
+                <div id="f44" class="field"></div>
+                <div id="f43" class="field"></div>
+                <div id="f42" class="field"></div>
+                <div id="f41" class="field"></div>
+                <div id="f40" class="field"></div>
+            </div>
+            <div id="r5" class="row">
+                <div id="f55" class="field"></div>
+                <div id="f54" class="field"></div>
+                <div id="f53" class="field"></div>
+                <div id="f52" class="field"></div>
+                <div id="f51" class="field"></div>
+                <div id="f50" class="field"></div>
+            </div>
+            <div id="r6" class="row" style="margin-right: 0;">
+                <div id="f65" class="field"></div>
+                <div id="f64" class="field"></div>
+                <div id="f63" class="field"></div>
+                <div id="f62" class="field"></div>
+                <div id="f61" class="field"></div>
+                <div id="f60" class="field"></div>
+            </div>
+            
+            <br clear="all" />
+        </div>
+
+        <div id="gameinfo">
+            <br />&nbsp;<br />
+            <br />&nbsp;<br />
+            <br />&nbsp;<br />
+            <br />&nbsp;<br />
+            <br />&nbsp;<br />
+            <br />&nbsp;<br />
+            <br />&nbsp;<br />
+        </div>
+        
+        <br clear="all" />
+        
+        <script type="text/javascript" src="#ROOT#/js/game.js"></script>
+        <script type="text/javascript">
+            Game.init('#ROOT#', #VAR:lngGameid#);
+        </script>

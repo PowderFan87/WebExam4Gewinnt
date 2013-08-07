@@ -26,6 +26,8 @@ class Core_Web_Template
                 } else {
                     var_dump('Can\'t find template "' . TEMPLATE_DIR . str_replace('_', DIRECTORY_SEPARATOR, $this->_objResponse->tplContent) . '.html' . '"');
                 }
+            } else if($this->_objResponse->getStrresponsetype() === TPL_MODE_JSON) {
+                $this->_txtOutput = file_get_contents(TPL_JSON_BASE);
             }
         }
     }

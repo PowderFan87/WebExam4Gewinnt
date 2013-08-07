@@ -10,13 +10,17 @@ class App_Hook_Infowidget implements IPosthook
     public function runPost() {
         $objResponse    = App_Factory_Response::getResponse();
         
-        $arrCounts      = tblGame::Getrunninggamecount();
+        $objUser = App_Factory_Security::getSecurity()->getObjuser();
         
-        $objResponse->lngGamesopen = $arrCounts['lngGamesopen'];
-        $objResponse->lngGamesturn = $arrCounts['lngGamesturn'];
+        if($objUser instanceof App_Data_User) {
+            $arrCounts      = tblGame::Getrunninggamecount();
         
-        $arrOnline      = tblUser::getCountallonline();
-        
-        $objResponse->lngOnline = $arrOnline['lngOnline'];
+            $objResponse->lngGamesopen = $arrCounts['lngGamesopen'];
+            $objResponse->lngGamesturn = $arrCounts['lngGamesturn'];
+
+            $arrOnline      = tblUser::getCountallonline();
+
+            $objResponse->lngOnline = $arrOnline['lngOnline'];
+        }
     }
 }

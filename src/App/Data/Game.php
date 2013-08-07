@@ -21,10 +21,30 @@ final class App_Data_Game extends App_Data_Base
     public function notAuthenticated() {
         $objUser = App_Factory_Security::getSecurity()->getObjuser();
 
+        if(!($objUser instanceof App_Data_User)) {
+            return false;
+        }
+        
         if($objUser->getUID() !== $this->getlngPlayer1() && $objUser->getUID() !== $this->getlngPlayer2()) {
             return true;
         }
 
+        return false;
+    }
+    
+    public function getPlayertype() {
+        $objUser = App_Factory_Security::getSecurity()->getObjuser();
+        
+        if(!($objUser instanceof App_Data_User)) {
+            return false;
+        }
+        
+        if($this->getlngPlayer1() === $objUser->getUID()) {
+            return 1;
+        } else if($this->getlngPlayer2() === $objUser->getUID()) {
+            return 2;
+        }
+        
         return false;
     }
 
@@ -45,6 +65,7 @@ final class App_Data_Game extends App_Data_Base
                 array(0,0,0,0,0,0),
                 array(0,0,0,0,0,0)
             )),
+            'strLastchange' => '',
             'lngPointsleft' => 42,
             'lngWinner'     => 0
         );
