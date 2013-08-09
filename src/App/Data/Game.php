@@ -11,11 +11,11 @@ final class App_Data_Game extends App_Data_Base
     const   TABLE_PK    = 'UID';
 
     public function getArrgamegrid() {
-        return unserialize($this->gettxtGamegrid());
+        return json_decode($this->gettxtGamegrid());
     }
 
     public function setArrgamegrid($arrGrid) {
-        $this->setTxtgamegrid(serialize($arrGrid));
+        $this->settxtGamegrid(json_encode($arrGrid));
     }
 
     public function notAuthenticated() {
@@ -56,7 +56,7 @@ final class App_Data_Game extends App_Data_Base
             'lngThemeid'    => 0,
             'lngTurn'       => 0,
             'enmStatus'     => 'open',
-            'txtGamegrid'   => serialize(array(
+            'txtGamegrid'   => json_encode(array(
                 array(0,0,0,0,0,0),
                 array(0,0,0,0,0,0),
                 array(0,0,0,0,0,0),

@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_NOTICE);
+error_reporting(E_WARNING);
 ini_set('display_errors', '1');
 
 // Basic project directory
@@ -38,8 +38,8 @@ $GLOBALS['arrCFGPrehooks']  = array(
     'App_Hook_Security'
 );
 $GLOBALS['arrCFGPosthooks'] = array(
-    'App_Hook_Infowidget',
-    'App_Hook_User'
+    'App_Hook_User',
+    'App_Hook_Infowidget'
 );
 
 // @TODO THIS IS JUST FOR MY XAMPP

@@ -31,7 +31,7 @@ abstract class App_Data_Base
             case 'get':
                 $strAttrname = str_replace('get', '', $strName);
 
-                if(isset($this->_arrData[$strAttrname])) {
+                if(array_key_exists($strAttrname, $this->_arrData)) {
                     return $this->_arrData[$strAttrname];
                 }
 
@@ -44,7 +44,7 @@ abstract class App_Data_Base
                     return false;
                 }
 
-                if(isset($this->_arrData[$strAttrname])) {
+                if(array_key_exists($strAttrname, $this->_arrData)) {
                     $this->_arrData[$strAttrname]   = $arrArguments[0];
                     $this->_blnAltered              = true;
 

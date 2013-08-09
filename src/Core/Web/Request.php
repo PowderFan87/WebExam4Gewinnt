@@ -34,9 +34,21 @@ abstract class Core_Web_Request
 
     abstract protected function _doFetchdata();
 
-    private function _doSanatize() {
-        foreach($this->_arrData as $mixKey => $mixValue) {
-            $this->_arrData[$mixKey] = @mysql_escape_string(strip_tags($mixValue));
+    private function _doSanatize($arrData = NULL) {
+        if($arrData === NULL) {
+            foreach($this->_arrData as $mixKey => $mixValue) {
+                if(is_array($this->_arrData[$mixKey])) {
+                    $this->_arrData[$mixKey] = $this->_doSanatize($this->_arrData[$mixKey]);
+                } else {
+                    $this->_arrData[$mixKey] = @mysql_escape_string(strip_tags($mixValue));
+                }
+            }
+        } else {
+            foreach($arrData as $mixKey => $mixValue) {
+                $arrData[$mixKey] = @mysql_escape_string(strip_tags($mixValue));
+            }
+            
+            return $arrData;
         }
     }
 
