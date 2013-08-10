@@ -42,15 +42,17 @@ Game = {
                             return;
                         }
                         
-                        if(d.msg === 'winner') {
-                            // do winner logik
-                            return;
-                        }
-                        
                         $(d.data.last).removeClass('coin0').addClass('coin'+this.data.play);
                         this.data = d.data;
                         $('#gamegrid').toggleClass('hasturn');
                         
+                        if(d.msg === 'winner') {
+                            // do winner logik
+                            
+                            alert('GEWONNEN!!!');
+                            
+                            return;
+                        }
                         this.intval = window.setInterval(function(){Game.checkUpdate();}, 2000);
                     },
                     'json'

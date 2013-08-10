@@ -103,6 +103,10 @@ class Command_XGame extends Core_Base_Command implements IXHttpRequest, IRestric
                 $arrJSON['msg'] = 'error';
             } else {
                 // check winner
+                
+                if(App_Web_Game::doWinnercheck($objGame)) {
+                    $arrJSON['msg'] = 'winner';
+                }
             }
             
             // data
