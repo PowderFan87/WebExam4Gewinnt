@@ -21,6 +21,10 @@ class App_Factory_Security
         return self::$_objSecurity;
     }
     
+    public static function doReset() {
+        self::$_objSecurity = NULL;
+    }
+    
     private static function _doLoad() {
         self::$_objSecurity = new App_Web_Security();
     }

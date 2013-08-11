@@ -167,34 +167,68 @@ th {
     color: green;
 }
 
+/*
+11 #4A874B
+12 #825BA4
+21 #EB9B0F
+22 #000000
+*/
 .theme0 .coin0,
 .theme1 .coin0,
 .theme2 .coin0 {
     background-color: #FFFFFF;
 }
-.theme0 .coin1,
-.theme1 .coin1,
-.theme2 .coin1 {
+.theme0 .coin1 {
     background-color: #F22F29;
 }
-.theme0 .coin2,
-.theme1 .coin2,
-.theme2 .coin2 {
+.theme1 .coin1 {
+    background-color: #5CBC5E;
+}
+.theme2 .coin1 {
+    background-color: #EB9B0F;
+}
+.theme0 .coin2 {
     background-color: #F7F224;
 }
-.theme0 #infPlayer1 .hasturn,
-.theme1 #infPlayer1 .hasturn,
-.theme2 #infPlayer1 .hasturn {
+.theme1 .coin2 {
+    background-color: #A87ECE;
+}
+.theme2 .coin2 {
+    background-color: #000000;
+}
+.theme0 #infPlayer1 .hasturn{
     -webkit-box-shadow: 0px 0px 10px 5px #F22F29, 0px 10px 10px 0px #F22F29;
     -moz-box-shadow: 0px 0px 10px 5px #F22F29, 0px 10px 10px 0px #F22F29;
     -o-box-shadow: 0px 0px 10px 5px #F22F29, 0px 10px 10px 0px #F22F29;
     box-shadow: 0px 0px 10px 5px #F22F29, 0px 10px 10px 0px #F22F29;
 }
-.theme0 #infPlayer2 .hasturn,
-.theme1 #infPlayer2 .hasturn,
-.theme2 #infPlayer2 .hasturn {
+.theme1 #infPlayer1 .hasturn{
+    -webkit-box-shadow: 0px 0px 10px 5px #5CBC5E, 0px 10px 10px 0px #5CBC5E;
+    -moz-box-shadow: 0px 0px 10px 5px #5CBC5E, 0px 10px 10px 0px #5CBC5E;
+    -o-box-shadow: 0px 0px 10px 5px #5CBC5E, 0px 10px 10px 0px #5CBC5E;
+    box-shadow: 0px 0px 10px 5px #5CBC5E, 0px 10px 10px 0px #5CBC5E;
+}
+.theme2 #infPlayer1 .hasturn {
+    -webkit-box-shadow: 0px 0px 10px 5px #EB9B0F, 0px 10px 10px 0px #EB9B0F;
+    -moz-box-shadow: 0px 0px 10px 5px #EB9B0F, 0px 10px 10px 0px #EB9B0F;
+    -o-box-shadow: 0px 0px 10px 5px #EB9B0F, 0px 10px 10px 0px #EB9B0F;
+    box-shadow: 0px 0px 10px 5px #EB9B0F, 0px 10px 10px 0px #EB9B0F;
+}
+.theme0 #infPlayer2 .hasturn {
     -webkit-box-shadow: 0px 0px 10px 5px #F7F224, 0px 10px 10px 0px #F7F224;
     -moz-box-shadow: 0px 0px 10px 5px #F7F224, 0px 10px 10px 0px #F7F224;
     -o-box-shadow: 0px 0px 10px 5px #F7F224, 0px 10px 10px 0px #F7F224;
     box-shadow: 0px 0px 10px 5px #F7F224, 0px 10px 10px 0px #F7F224;
+}
+.theme1 #infPlayer2 .hasturn {
+    -webkit-box-shadow: 0px 0px 10px 5px #A87ECE, 0px 10px 10px 0px #A87ECE;
+    -moz-box-shadow: 0px 0px 10px 5px #A87ECE, 0px 10px 10px 0px #A87ECE;
+    -o-box-shadow: 0px 0px 10px 5px #A87ECE, 0px 10px 10px 0px #A87ECE;
+    box-shadow: 0px 0px 10px 5px #A87ECE, 0px 10px 10px 0px #A87ECE;
+}
+.theme2 #infPlayer2 .hasturn {
+    -webkit-box-shadow: 0px 0px 10px 5px #000000, 0px 10px 10px 0px #000000;
+    -moz-box-shadow: 0px 0px 10px 5px #000000, 0px 10px 10px 0px #000000;
+    -o-box-shadow: 0px 0px 10px 5px #000000, 0px 10px 10px 0px #000000;
+    box-shadow: 0px 0px 10px 5px #000000, 0px 10px 10px 0px #000000;
 }

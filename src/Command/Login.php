@@ -23,6 +23,10 @@ class Command_Login extends Core_Base_Command implements IHttpRequest
             $this->_objResponse->tplContent = 'Login_POST_Main';
 
             $this->_objResponse->strResult  = 'Erfolgreich';
+            
+            if(count(tblGame::getAllownrunning()) > 0) {
+                header("Location: " . CFG_WEB_ROOT . "/Game/Laufende");
+            }
         }
     }
 

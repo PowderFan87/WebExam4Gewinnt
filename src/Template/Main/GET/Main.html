@@ -1,28 +1,11 @@
 
         <h1>#VAR:strWellcome#</h1>
 
-        <table class="ui-widget ui-widget-content">
-            <tr class="ui-widget-header ">
-                <th>Title</th>
-                <th>Value</th>
-            </tr>
-            #FOREACH:arrTest#
-            <tr>
-                <td>#VAR:strTitle#</td>
-                <td>#VAR:strValue#</td>
-            </tr>
-            #/FOREACH#
-        </table>
+        Dieses online Spiel wurde im Zuge einer Prüfung für Webentwicklung<br />
+        Programmiert von Holger Szüsz. <br />
         <br />
-        <table class="ui-widget ui-widget-content">
-            <tr class="ui-widget-header ">
-                <th>Vorname</th>
-                <th>Nachname</th>
-            </tr>
-            #FOREACH:arrTest2#
-            <tr>
-                <td>#VAR:strVorname#</td>
-                <td>#VAR:strName#</td>
-            </tr>
-            #/FOREACH#
-        </table>
+        Ich würnsch dennoch viel spaß :)<br />
+        <br />
+        #IF:!isset($_SESSION['loggedin'])#
+        PS: Die Mail der Registrierung landet vermutlich im Junk ;)
+        #/IF#

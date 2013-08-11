@@ -27,6 +27,8 @@ class App_Web_Security
         if(md5(MD5_MOD . $strPassword) === $objUser->getstrPassword() && $objUser->getblnActivated() == 1) {
             self::loginUser($objUser);
             
+            App_Factory_Security::doReset();
+            
             return true;
         }
         
