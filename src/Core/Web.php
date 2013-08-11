@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Description of Core_Web
+ * MVC root class. Entry point into application.
+ * Initialize basic configuration of request and response
  *
  * @author Holger Szüsz <hszuesz@live.com>
  */
@@ -13,16 +14,31 @@ class Core_Web
     private $_objPrehooks;
     private $_objPosthooks;
 
+    /**
+     * Basic constructor to start session and init application
+     * 
+     */
     public function __construct() {
         session_start();
 
         $this->_doInit();
     }
 
+    /**
+     * Basic destructor to close session
+     * 
+     */
     public function __destruct() {
         session_write_close();
     }
 
+    /**
+     * Run request command and hooks
+     * 
+     * First the pre hooks are executed then the command and last the
+     * post hooks
+     * 
+     */
     public function run() {
         foreach($this->_objPrehooks as $objPrehook) {
             try {
@@ -43,12 +59,25 @@ class Core_Web
         }
     }
 
+    /**
+     * Basic toString methode. Get Instance of template engine and return
+     * evaluated string.
+     * 
+     * @return String
+     */
     public function __toString() {
         $objTemplate = new Core_Web_Template(App_Factory_Response::getResponse());
 
         return (string)$objTemplate;
     }
 
+    /**
+     * Initialize application
+     * 
+     * Initialize request objekt and get command config. Also all pre and Post
+     * hooks are loaded into application.
+     * 
+     */
     private function _doInit() {
         try {
             $this->_objRequest      = App_Factory_Request::getRequest();

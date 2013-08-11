@@ -1,12 +1,17 @@
 <?php
 
 /**
- * Description of App_Hook_Infowidget
+ * Infowidget post hook
  *
  * @author Holger Szüsz <hszuesz@live.com>
  */
 class App_Hook_Infowidget implements IPosthook
 {
+    /**
+     * Infowidget post hook to collect all information displayed in info
+     * widget like online users and game counts and set them in response
+     * 
+     */
     public function runPost() {
         $objResponse    = App_Factory_Response::getResponse();
         

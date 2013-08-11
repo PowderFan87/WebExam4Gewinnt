@@ -1,16 +1,25 @@
 <?php
 
 /**
- * Description of Game
+ * Game command with corresponding action collection
  *
  * @author Holger Szüsz <hszuesz@live.com>
  */
 class Command_Game extends Core_Base_Command implements IHttpRequest, IRestricted
 {
+    /**
+     * Get string of command restriction check
+     * 
+     * @return string
+     */
     public static function getRestriction() {
         return 'App_Web_Security::isAuthenticated';
     }
 
+    /**
+     * Fallback action if restriction is not met
+     * 
+     */
     public function getFallback() {
         $this->_objResponse->tplContent = 'Game_GET_Fallback';
 
@@ -18,6 +27,10 @@ class Command_Game extends Core_Base_Command implements IHttpRequest, IRestricte
         $this->_objResponse->strTitle .= ' - Not logged in';
     }
 
+    /**
+     * List action to display list of jounable games
+     * 
+     */
     public function getList() {
         $this->_objResponse->tplContent = 'Game_GET_List';
 
@@ -25,12 +38,20 @@ class Command_Game extends Core_Base_Command implements IHttpRequest, IRestricte
         $this->_objResponse->arrGames = tblGame::getAlljoinable();
     }
 
+    /**
+     * New action to create a new game (get request)
+     * 
+     */
     public function getNeu() {
         $this->_objResponse->tplContent = 'Game_GET_Neu';
 
         $this->_objResponse->strTitle .= ' - Neues Spiel';
     }
 
+    /**
+     * Spielen action to enter currently running game
+     * 
+     */
     public function getSpielen() {
         $this->_objResponse->tplContent = 'Game_GET_Spielen';
 
@@ -66,6 +87,10 @@ class Command_Game extends Core_Base_Command implements IHttpRequest, IRestricte
         }
     }
     
+    /**
+     * Offene action to display all curently open games of user
+     * 
+     */
     public function getOffene() {
         $this->_objResponse->tplContent = 'Game_GET_Offene';
 
@@ -73,6 +98,10 @@ class Command_Game extends Core_Base_Command implements IHttpRequest, IRestricte
         $this->_objResponse->arrGames = tblGame::getAllownopen();
     }
     
+    /**
+     * Laufende action to display all currently runing games fo user
+     * 
+     */
     public function getLaufende() {
         $this->_objResponse->tplContent = 'Game_GET_Laufende';
 
@@ -80,6 +109,10 @@ class Command_Game extends Core_Base_Command implements IHttpRequest, IRestricte
         $this->_objResponse->arrGames = tblGame::getAllownrunning();
     }
 
+    /**
+     * Beitreten action do enter an open game (post request)
+     * 
+     */
     public function postBeitreten() {
         $objGame    = tblGame::getBypk($this->_objRequest->uid);
         $objUser    = App_Factory_Security::getSecurity()->getObjuser();
@@ -103,6 +136,10 @@ class Command_Game extends Core_Base_Command implements IHttpRequest, IRestricte
         }
     }
     
+    /**
+     * Schliessen action to close a former open game of user
+     * 
+     */
     public function postSchliessen() {
         $objGame    = tblGame::getBypk($this->_objRequest->uid);
         
@@ -125,6 +162,10 @@ class Command_Game extends Core_Base_Command implements IHttpRequest, IRestricte
         }
     }
 
+    /**
+     * New action to create new game in DB (post request)
+     * 
+     */
     public function postNeu() {
         $this->_objResponse->tplContent = 'Game_POST_Neu';
 
@@ -163,10 +204,19 @@ class Command_Game extends Core_Base_Command implements IHttpRequest, IRestricte
         }
     }
 
+    /**
+     * Basic init methode
+     * 
+     */
     protected function _doInit() {
         $this->_objResponse->strTitle = 'Game';
     }
 
+    /**
+     * Validate request data for new game
+     * 
+     * @return boolean
+     */
     private function _doValidate() {
         $arrErrors = array();
 

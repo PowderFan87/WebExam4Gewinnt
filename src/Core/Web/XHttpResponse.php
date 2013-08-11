@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of Core_Web_XHttpResponse
+ * XHTTP response class
  *
  * @author Holger Szüsz <hszuesz@live.com>
  */

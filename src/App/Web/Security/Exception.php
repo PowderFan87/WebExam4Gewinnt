@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of App_Web_Security_Exception
+ * Exception for web security class
  *
  * @author Holger Szüsz <hszuesz@live.com>
  */

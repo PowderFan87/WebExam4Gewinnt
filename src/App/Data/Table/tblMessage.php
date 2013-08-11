@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of tblMessage
+ * Access class for tblMessage table
  *
  * @author Holger Szüsz <hszuesz@live.com>
  */

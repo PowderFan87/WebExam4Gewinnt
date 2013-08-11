@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of tblFriendlist
+ * Access class for tblFriendlist table
  *
  * @author Holger Szüsz <hszuesz@live.com>
  */

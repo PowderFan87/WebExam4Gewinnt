@@ -1,24 +1,41 @@
 <?php
 
 /**
- * Description of Command_Registrieren
+ * Registrieren command and action collection
  *
  * @author Holger Szüsz <hszuesz@live.com>
  */
 class Command_Registrieren extends Core_Base_Command implements IHttpRequest, IRestricted
 {
+    /**
+     * Get restriction for command
+     * 
+     * @return string
+     */
     public static function getRestriction() {
         return 'App_Web_Security::notAuthenticated';
     }
 
+    /**
+     * Fallback action if restriction is not met
+     * 
+     */
     public function getFallback() {
         $this->_objResponse->tplContent = 'Registrieren_GET_Fallback';
     }
 
+    /**
+     * Display registration form (get request)
+     * 
+     */
     public function getMain() {
         $this->_objResponse->tplContent = 'Registrieren_GET_Main';
     }
 
+    /**
+     * Try to register user
+     * 
+     */
     public function postMain() {
         $this->_objResponse->tplContent = 'Registrieren_POST_Main';
 
@@ -55,7 +72,7 @@ Hallo {$objUser->getstrUsername()},
 vielen Dank für deine Anmeldung bei 4-Gewinnt.
 Um deine Anmeldung zu vervollständigen folge bitte dem Link in der Email.
 
-http://4gewinnt.szüsz.de/Registrieren/Aktivieren?user={$objUser->getstrUsername()}
+http://localhost/WebExam4Gewinnt/Registrieren/Aktivieren?user={$objUser->getstrUsername()}
 
 Vielen Dank und viel Spaß beim 4-Gewinnt spielen :)
 
@@ -73,12 +90,20 @@ TXT;
         }
     }
 
+    /**
+     * Display activation page
+     * 
+     */
     public function getAktivieren() {
         $this->_objResponse->tplContent = 'Registrieren_GET_Aktivieren';
 
         $this->_objResponse->strUsername = $this->_objRequest->user;
     }
 
+    /**
+     * Try to activate user
+     * 
+     */
     public function postAktivieren() {
         $this->_objResponse->tplContent = 'Registrieren_POST_Aktivieren';
 
@@ -104,10 +129,19 @@ TXT;
         }
     }
 
+    /**
+     * Basic init methode
+     * 
+     */
     protected function _doInit() {
         $this->_objResponse->strTitle = 'Registrieren';
     }
 
+    /**
+     * Validate Request values for registration process
+     * 
+     * @return boolean
+     */
     private function _doValidate() {
         $arrErrors = array();
 

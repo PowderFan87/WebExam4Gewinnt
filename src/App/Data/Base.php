@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of App_Data_Base
+ * Base AR class for all AR objects common factors
  *
  * @author Holger Szüsz <hszuesz@live.com>
  */
@@ -14,6 +14,12 @@ abstract class App_Data_Base
     protected $_blnAltered = false;
     protected $_blnUpdated = false;
 
+    /**
+     * Init AR object. If arrData is null the empty array is loaded instead
+     * of the given value (for new entries into DB).
+     * 
+     * @param array|null $arrData
+     */
     public function __construct($arrData = NULL) {
         if(is_array($arrData)) {
             $this->_arrData = $arrData;
@@ -22,10 +28,25 @@ abstract class App_Data_Base
         }
     }
 
+    /**
+     * Get full data array
+     * 
+     * @return array
+     */
     public function getArrdata() {
         return $this->_arrData;
     }
 
+    /**
+     * Magic function is called when a non existing function is executed on an
+     * AR instance. If so we check if it was get or set and if the attribute
+     * exsists in our data array. If so we perform the get or set action (with
+     * the exception of set not working for PK attribute).
+     * 
+     * @param string $strName
+     * @param array $arrArguments
+     * @return boolean|mixed
+     */
     public function __call($strName, $arrArguments) {
         switch(substr($strName, 0, 3)) {
             case 'get':
@@ -63,6 +84,11 @@ abstract class App_Data_Base
         }
     }
 
+    /**
+     * Update full AR into DB
+     * 
+     * @return boolean
+     */
     public function doFullupdate() {
         $strClass   = get_called_class();
         $strTable   = $strClass::TABLE_CLASS;
@@ -78,6 +104,11 @@ abstract class App_Data_Base
         return $this->_blnUpdated;
     }
 
+    /**
+     * Insert new row with AR values into DB
+     * 
+     * @return boolean
+     */
     public function doInsert() {
         $strClass   = get_called_class();
         $strTable   = $strClass::TABLE_CLASS;
@@ -93,5 +124,8 @@ abstract class App_Data_Base
         return $this->_blnUpdated;
     }
 
+    /**
+     * define abstract methode getEmptyarray() to be implemented by extending class
+     */
     abstract protected function getEmpryarray();
 }

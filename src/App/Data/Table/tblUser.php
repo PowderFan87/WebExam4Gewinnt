@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of tblUser
+ * Access class for tblUser table
  *
  * @author Holger Szüsz <hszuesz@live.com>
  */
@@ -11,6 +11,12 @@ class tblUser extends App_Data_Table_Base
     const TABLE_PK      = 'UID';
     const TABLE_ARCLASS = 'User';
 
+    /**
+     * Get AR-Class instance of table by username
+     * 
+     * @param string $strUsername
+     * @return boolean|App_Data_Base
+     */
     public static function getUserbystrusername($strUsername) {
         try {
             $strARClass = 'App_Data_' . self::TABLE_ARCLASS;
@@ -36,6 +42,11 @@ WHERE
         return false;
     }
     
+    /**
+     * Get count of currently online players
+     * 
+     * @return array|boolean
+     */
     public static function getCountallonline() {
         $strQuery = '
 SELECT
@@ -63,6 +74,11 @@ AND
         return false;
     }
     
+    /**
+     * Get highscore of players who played atleast one game
+     * 
+     * @return boolean|array
+     */
     public static function getHighscore() {
         $strQuery = '
 SELECT

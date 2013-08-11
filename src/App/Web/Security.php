@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of App_Web_Security
+ * Security class for web application
  *
  * @author Holger Szüsz <hszuesz@live.com>
  */
@@ -9,14 +9,31 @@ class App_Web_Security
 {
     private $_objUser = NULL;
 
+    /**
+     * Return if current session has a loggedin value
+     * 
+     * @return boolean
+     */
     public static function isAuthenticated() {
         return isset($_SESSION['loggedin']);
     }
 
+    /**
+     * inverse function to isAuthenticated
+     * 
+     * @return boolean
+     */
     public static function notAuthenticated() {
         return !isset($_SESSION['loggedin']);
     }
 
+    /**
+     * Try to find and loggin user by username and password
+     * 
+     * @param string $strUsername
+     * @param string $strPassword
+     * @return boolean
+     */
     public static function tryLogin($strUsername, $strPassword) {
         $objUser = tblUser::getUserbystrusername($strUsername);
 
@@ -35,6 +52,12 @@ class App_Web_Security
         return false;
     }
 
+    /**
+     * Lotin user by setting db values on 1 and current timestamp
+     * 
+     * @param App_Data_User $objUser
+     * @throws App_Web_Security_Exception
+     */
     private static function loginUser(App_Data_User $objUser) {
         $_SESSION['loggedin'] = $objUser->getUID();
 
@@ -47,12 +70,22 @@ class App_Web_Security
 
     }
 
+    /**
+     * Check in init if we have a logged in value in session and try to load
+     * user from DB
+     * 
+     */
     public function __construct() {
         if(isset($_SESSION['loggedin'])) {
             $this->_objUser = tblUser::getBypk($_SESSION['loggedin']);
         }
     }
 
+    /**
+     * Make an I check to prevent session hijacking
+     * 
+     * @return boolean
+     */
     public function doIpcheck() {
         if((isset($_SESSION['IP']) && $_SESSION['IP'] !== $_SERVER['REMOTE_ADDR']) ||
            (isset($_SESSION['IP_FORW']) && $_SESSION['IP_FORW'] !== $_SERVER['HTTP_X_FORWARDED_FOR'])) {
@@ -62,6 +95,11 @@ class App_Web_Security
         return true;
     }
     
+    /**
+     * Check if user was inactive for to long and logg out if so.
+     * 
+     * @return boolean
+     */
     public function doTimeoutcheck() {
         if(!($this->_objUser instanceof App_Data_User)) {
             return true;
@@ -78,6 +116,11 @@ class App_Web_Security
         return true;
     }
 
+    /**
+     * Destroy current session by resetting session array and make cookie invalid
+     * 
+     * @throws App_Web_Security_Exception
+     */
     public function doDestroysession() {
         $_SESSION = array();
 
@@ -100,6 +143,7 @@ class App_Web_Security
     }
 
     /**
+     * Return AR-Class instance of current loggedin user
      * 
      * @return App_Data_User
      */

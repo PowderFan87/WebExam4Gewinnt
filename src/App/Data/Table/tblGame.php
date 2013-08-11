@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of tblGame
+ * Access class for tblGame table
  *
  * @author Holger Szüsz <hszuesz@live.com>
  */
@@ -11,6 +11,13 @@ class tblGame extends App_Data_Table_Base
     const TABLE_PK      = 'UID';
     const TABLE_ARCLASS = 'Game';
 
+    /**
+     * Get all joinable games for current logged in user.
+     * If parameter blnObject is true an array of AR-Class objects is returned
+     * 
+     * @param boolean $blnObjects
+     * @return null|App_Data_Base|array
+     */
     public static function getAlljoinable($blnObjects = false) {
         $strARClass = 'App_Data_' . self::TABLE_ARCLASS;
         $strQuery   = '
@@ -43,6 +50,13 @@ AND
         }
     }
     
+    /**
+     * Get all open games of current logged in user.
+     * If parameter blnObject is true an array of AR-Class objects is returned
+     * 
+     * @param boolean $blnObjects
+     * @return null|App_Data_Base|array
+     */
     public static function getAllownopen($blnObjects = false) {
         $strARClass = 'App_Data_' . self::TABLE_ARCLASS;
         $strQuery   = '
@@ -75,6 +89,13 @@ AND
         }
     }
     
+    /**
+     * Get all currently running games of logged in user.
+     * If parameter blnObject is true an array of AR-Class objects is returned
+     * 
+     * @param boolean $blnObjects
+     * @return null|App_Data_Base|array
+     */
     public static function getAllownrunning($blnObjects = false) {
         $strARClass = 'App_Data_' . self::TABLE_ARCLASS;
         $strQuery   = '
@@ -111,6 +132,12 @@ AND
         }
     }
     
+    /**
+     * Get count of running games and games where the current user has a active
+     * turn.
+     * 
+     * @return int
+     */
     public static function Getrunninggamecount() {
         $strQueryopen   = '
 SELECT
@@ -170,6 +197,12 @@ AND
         }
     }
     
+    /**
+     * Get contestor data of a game by AR-Class object value.
+     * 
+     * @param App_Data_Game $objGame
+     * @return array
+     */
     public static function getContestors(App_Data_Game $objGame) {
         $strQuery   = '
 SELECT

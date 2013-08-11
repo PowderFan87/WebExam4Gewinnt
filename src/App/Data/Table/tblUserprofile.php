@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of tblUserprofile
+ * Access class for tblUserprofile table
  *
  * @author Holger Szüsz <hszuesz@live.com>
  */

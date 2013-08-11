@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Description of App_Config_Exception
+ * Application configuration exception
  *
  * @author Holger Szüsz <hszuesz@live.com>
  */
 class App_Config_Exception extends Exception
 {
-    //put your code here
+    
 }

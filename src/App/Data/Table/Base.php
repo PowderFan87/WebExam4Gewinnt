@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of App_Data_Table_Base
+ * Basic table data class with all methodes that all tables have in commen
  *
  * @author Holger Szüsz <hszuesz@live.com>
  */
@@ -12,7 +12,8 @@ abstract class App_Data_Table_Base
     const TABLE_ARCLASS = 'undefined';
 
     /**
-     *
+     * Update AR-Object values into Database
+     * 
      * @param App_Data_Base $objEntity
      * @return boolean true or false depending on update result
      */
@@ -34,6 +35,12 @@ abstract class App_Data_Table_Base
         return false;
     }
 
+    /**
+     * Insert new row into DB based on AR-Class object values
+     * 
+     * @param App_Data_Base $objEntity
+     * @return boolean
+     */
     public static function doInsert($objEntity) {
         $strClass   = get_called_class();
 
@@ -46,6 +53,13 @@ abstract class App_Data_Table_Base
         return false;
     }
 
+    /**
+     * Get entry from table by PK and return false if none is found or an instance
+     * of AR-Class regarding the called table.
+     * 
+     * @param integer $lngPk
+     * @return App_Data_Base|boolean
+     */
     public static function getBypk($lngPk) {
         try {
             $strClass   = get_called_class();

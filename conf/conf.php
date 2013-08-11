@@ -1,6 +1,6 @@
 <?php
-error_reporting(E_WARNING);
-ini_set('display_errors', '1');
+error_reporting(0);
+ini_set('display_errors', '0');
 
 // Basic project directory
 define('BASE_DIR', __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR);

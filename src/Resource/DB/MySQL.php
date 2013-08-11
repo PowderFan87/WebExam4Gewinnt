@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of Resource_DB_MySQL
+ * MySQL DB resource connector
  *
  * @author Holger Szüsz <hszuesz@live.com>
  */
@@ -10,7 +10,8 @@ class Resource_DB_MySQL implements IResource
     private $_resDb;
 
     /**
-     *
+     * Init resource connector. Establish connection to DB
+     * 
      * @throws Resource_Exception
      */
     public function __construct() {
@@ -26,14 +27,16 @@ class Resource_DB_MySQL implements IResource
     }
 
     /**
-     *
+     * Close db connection
+     * 
      */
     public function __destruct() {
         mysql_close($this->_resDb);
     }
 
     /**
-     *
+     * Exec an SQL query on resource
+     * 
      * @param String $strQuery
      * @return boolean
      * @throws Resource_Exception
@@ -47,7 +50,8 @@ class Resource_DB_MySQL implements IResource
     }
 
     /**
-     *
+     * Read multiple entries from DB
+     * 
      * @param String $strQuery
      * @param boolean $blnArray
      * @return resource|Array
@@ -68,7 +72,8 @@ class Resource_DB_MySQL implements IResource
     }
 
     /**
-     *
+     * Rean only one single entry from DB
+     * 
      * @param String $strQuery
      * @return Array
      */
@@ -76,6 +81,15 @@ class Resource_DB_MySQL implements IResource
         return array_shift($this->read($strQuery, true));
     }
 
+    /**
+     * Update gields to resource connection
+     * 
+     * @param arry $arrFieldList
+     * @param string $strScope
+     * @param array $arrConditions
+     * @return boolean
+     * @throws Resource_Exception
+     */
     public function update($arrFieldList, $strScope, $arrConditions = array()) {
         if (empty($arrFieldList)) {
             throw new Resource_Exception('Fieldlist is empty!');
@@ -109,7 +123,7 @@ class Resource_DB_MySQL implements IResource
     }
 
     /**
-     * Do Insert into DB
+     * Do Insert into Resource
      *
      * If you have two or more Rows to Insert, pass an Array like this:
      * 		array(
@@ -154,12 +168,17 @@ class Resource_DB_MySQL implements IResource
         return $this->exec(sprintf($strSql, implode(', ', $arrValues)));
     }
 
+    /**
+     * Prevent cloneing of resource
+     * 
+     */
     private function __clone() {
         ;
     }
 
     /**
-     *
+     * Evaluate result to array
+     * 
      * @param resource $objResultset
      * @return Array
      * @throws Resource_Exception

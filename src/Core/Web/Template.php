@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of Core_Web_Template
+ * Basic template engine class
  *
  * @author Holger Szüsz <hszuesz@live.com>
  */
@@ -11,7 +11,8 @@ class Core_Web_Template
     protected $_objResponse;
 
     /**
-     *
+     *Init template engine and load base or given tempalte.
+     * 
      * @param Core_Web_Response $objResponse
      */
     public function __construct($objResponse) {
@@ -32,6 +33,11 @@ class Core_Web_Template
         }
     }
 
+    /**
+     * Evaluate template marker and return final string
+     * 
+     * @return string
+     */
     public function __toString() {
         $this->_txtOutput = str_replace("#ROOT#", CFG_WEB_ROOT, $this->_txtOutput);
 
@@ -44,20 +50,44 @@ class Core_Web_Template
         return $this->_txtOutput;
     }
 
+    /**
+     * Replace CONST marker with value from constant
+     * 
+     * @param array $arrMatch
+     * @return mixed
+     */
     protected function _getConstreplacement($arrMatch) {
         return constant($arrMatch[1]);
     }
 
+    /**
+     * Replace VAR marker with value from response class
+     * 
+     * @param array $arrMatch
+     * @return mixed
+     */
     protected function _getVarreplacement($arrMatch) {
         return $this->_objResponse->$arrMatch[1];
     }
 
+    /**
+     * Relace TPL marker with value of subtemplate
+     * 
+     * @param array $arrMatch
+     * @return string
+     */
     protected function _getTplreplacement($arrMatch) {
         $objSubtemplate = new Core_Web_Template_Subtemplate($this->_objResponse->$arrMatch[1], $this->_objResponse);
 
         return (string)$objSubtemplate;
     }
 
+    /**
+     * Evaluate IF marker and statement and remove or leave block.
+     * 
+     * @param array $arrMatch
+     * @return string
+     */
     protected function _getIfreplacement($arrMatch) {
         $blnResult = false;
 
@@ -70,6 +100,12 @@ class Core_Web_Template
         }
     }
 
+    /**
+     * Evaluate FOREACH marker to display a block N times.
+     * 
+     * @param array $arrMatch
+     * @return string
+     */
     protected function _getForeachreplacement($arrMatch) {
         $arrData    = $this->_objResponse->$arrMatch[1];
         $txtTpl     = $arrMatch[2];

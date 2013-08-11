@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of App_Data_Game
+ * AR class for tblGame table
  *
  * @author Holger Szüsz <hszuesz@live.com>
  */
@@ -10,14 +10,31 @@ final class App_Data_Game extends App_Data_Base
     const   TABLE_CLASS = 'tblGame';
     const   TABLE_PK    = 'UID';
 
+    /**
+     * Get gamegrid as array instead of the json string
+     * 
+     * @return array
+     */
     public function getArrgamegrid() {
         return json_decode($this->gettxtGamegrid());
     }
 
+    /**
+     * Set gamegrid by sending an array that is then json encoded into real
+     * field.
+     * 
+     * @param array $arrGrid
+     */
     public function setArrgamegrid($arrGrid) {
         $this->settxtGamegrid(json_encode($arrGrid));
     }
 
+    /**
+     * Check if current logged in user is or is not authenticated for this game
+     * instance.
+     * 
+     * @return boolean
+     */
     public function notAuthenticated() {
         $objUser = App_Factory_Security::getSecurity()->getObjuser();
 
@@ -32,6 +49,11 @@ final class App_Data_Game extends App_Data_Base
         return false;
     }
     
+    /**
+     * Get playertype (player 1 or player 2) for current user.
+     * 
+     * @return boolean|int
+     */
     public function getPlayertype() {
         $objUser = App_Factory_Security::getSecurity()->getObjuser();
         
@@ -48,6 +70,11 @@ final class App_Data_Game extends App_Data_Base
         return false;
     }
 
+    /**
+     * Get empty array of AR class
+     * 
+     * @return array
+     */
     protected function getEmpryarray() {
         return array(
             'strName'       => '',

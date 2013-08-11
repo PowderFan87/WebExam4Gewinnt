@@ -1,12 +1,16 @@
 <?php
 
 /**
- * Description of App_Hook_User
+ * User Posthook
  *
  * @author Holger Szüsz <hszuesz@live.com>
  */
 class App_Hook_User implements IPosthook
 {
+    /**
+     * Update user last action at the end of an request
+     * 
+     */
     public function runPost() {
         $objUser = App_Factory_Security::getSecurity()->getObjuser();
         

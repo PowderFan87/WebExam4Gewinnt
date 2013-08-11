@@ -1,24 +1,40 @@
 <?php
 
 /**
- * Description of Command_XGame
+ * XGame command with collection of all ajax related game actions
  *
  * @author Holger Szüsz <hszuesz@live.com>
  */
 class Command_XGame extends Core_Base_Command implements IXHttpRequest, IRestricted
 {
+    /**
+     * Get restriction for command
+     * 
+     * @return string
+     */
     public static function getRestriction() {
         return 'App_Web_Security::isAuthenticated';
     }
 
+    /**
+     * Fallback action if restriction is not met
+     */
     public function getFallback() {
         $this->_objResponse->error = 'RESTRICTED';
     }
 
+    /**
+     * Alis for getFallback
+     * 
+     */
     public function postFallback() {
-        $this->_objResponse->error = 'RESTRICTED';
+        $this->getFallback();
     }
 
+    /**
+     * Get list of joinable games
+     * 
+     */
     public function postGetlist() {
         $this->_objResponse->setStrresponsetype(TPL_MODE_HTML_ACTION_ONLY);
 
@@ -27,6 +43,10 @@ class Command_XGame extends Core_Base_Command implements IXHttpRequest, IRestric
         $this->_objResponse->arrGames = tblGame::getAlljoinable();
     }
 
+    /**
+     * Update game information
+     * 
+     */
     public function postUpdate() {
         $this->_objResponse->setStrresponsetype(TPL_MODE_JSON);
 
@@ -86,6 +106,10 @@ class Command_XGame extends Core_Base_Command implements IXHttpRequest, IRestric
         }
     }
 
+    /**
+     * Set new move
+     * 
+     */
     public function postMove() {
         $this->_objResponse->setStrresponsetype(TPL_MODE_JSON);
 
@@ -164,6 +188,10 @@ class Command_XGame extends Core_Base_Command implements IXHttpRequest, IRestric
         }
     }
     
+    /**
+     * Get basic game data
+     * 
+     */
     public function postData() {
         $this->_objResponse->setStrresponsetype(TPL_MODE_JSON);
 
@@ -183,6 +211,9 @@ class Command_XGame extends Core_Base_Command implements IXHttpRequest, IRestric
         }
     }
 
+    /**
+     * Basic init methode
+     */
     protected function _doInit() {
         ;
     }
