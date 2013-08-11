@@ -1,0 +1,30 @@
+
+        <h1>4-Gewinnt Highscore</h1>
+
+        #IF:is_array($this->_objResponse->arrPlayer)#
+        <form id="join"></form>
+        <table class="ui-widget ui-widget-content">
+            <thead>
+                <tr class="ui-widget-header ">
+                    <th>Username</th>
+                    <th>Punkte</th>
+                    <th>Partien</th>
+                    <th>Punkteschnitt</th>
+                </tr>
+            </thead>
+            <tbody>
+                #FOREACH:arrPlayer#
+                <tr>
+                    <td>#VAR:strName#</td>
+                    <td>#VAR:lngPoints#</td>
+                    <td>#VAR:lngPlayedgames#</td>
+                    <td>#VAR:lngAvgpoints#</td>
+                </tr>
+                #/FOREACH#
+            </tbody>
+        </table>
+        #/IF#
+        
+        #IF:!is_array($this->_objResponse->arrPlayer)#
+        <h3>Derzeit keine Highscore verfügbar</h3>
+        #/IF#

@@ -20,6 +20,10 @@ class App_Web_Security
     public static function tryLogin($strUsername, $strPassword) {
         $objUser = tblUser::getUserbystrusername($strUsername);
 
+        if(!($objUser instanceof App_Data_User)) {
+            return false;
+        }
+        
         if(md5(MD5_MOD . $strPassword) === $objUser->getstrPassword() && $objUser->getblnActivated() == 1) {
             self::loginUser($objUser);
             
@@ -29,7 +33,7 @@ class App_Web_Security
         return false;
     }
 
-    private static function loginUser($objUser) {
+    private static function loginUser(App_Data_User $objUser) {
         $_SESSION['loggedin'] = $objUser->getUID();
 
         $objUser->setblnLoggedin(true);

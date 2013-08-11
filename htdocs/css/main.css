@@ -167,22 +167,32 @@ th {
     color: green;
 }
 
-.theme0 .coin0 {
+.theme0 .coin0,
+.theme1 .coin0,
+.theme2 .coin0 {
     background-color: #FFFFFF;
 }
-.theme0 .coin1 {
+.theme0 .coin1,
+.theme1 .coin1,
+.theme2 .coin1 {
     background-color: #F22F29;
 }
-.theme0 .coin2 {
+.theme0 .coin2,
+.theme1 .coin2,
+.theme2 .coin2 {
     background-color: #F7F224;
 }
-.theme0 #infPlayer1 .hasturn {
+.theme0 #infPlayer1 .hasturn,
+.theme1 #infPlayer1 .hasturn,
+.theme2 #infPlayer1 .hasturn {
     -webkit-box-shadow: 0px 0px 10px 5px #F22F29, 0px 10px 10px 0px #F22F29;
     -moz-box-shadow: 0px 0px 10px 5px #F22F29, 0px 10px 10px 0px #F22F29;
     -o-box-shadow: 0px 0px 10px 5px #F22F29, 0px 10px 10px 0px #F22F29;
     box-shadow: 0px 0px 10px 5px #F22F29, 0px 10px 10px 0px #F22F29;
 }
-.theme0 #infPlayer2 .hasturn {
+.theme0 #infPlayer2 .hasturn,
+.theme1 #infPlayer2 .hasturn,
+.theme2 #infPlayer2 .hasturn {
     -webkit-box-shadow: 0px 0px 10px 5px #F7F224, 0px 10px 10px 0px #F7F224;
     -moz-box-shadow: 0px 0px 10px 5px #F7F224, 0px 10px 10px 0px #F7F224;
     -o-box-shadow: 0px 0px 10px 5px #F7F224, 0px 10px 10px 0px #F7F224;

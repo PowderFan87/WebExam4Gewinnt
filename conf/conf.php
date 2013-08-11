@@ -18,7 +18,7 @@ define('TPL_MODE_JSON',             'json');
 define('TPL_HTML_BASE',             TEMPLATE_DIR . 'base.html');
 define('TPL_JSON_BASE',             TEMPLATE_DIR . 'jsonBase.html');
 
-// Resource Config
+// Resource Config 
 define('RESOURCE_TYPE',         'DB');
 define('RESOURCE_SYSTEM',       'MySQL');
 define('RESOURCE_DB_HOST',      '127.0.0.1');

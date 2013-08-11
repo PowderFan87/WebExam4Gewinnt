@@ -55,7 +55,7 @@ Hallo {$objUser->getstrUsername()},
 vielen Dank für deine Anmeldung bei 4-Gewinnt.
 Um deine Anmeldung zu vervollständigen folge bitte dem Link in der Email.
 
-http://localhost/WebExam4Gewinnt/htdocs/Registrieren/Aktivieren?user={$objUser->getstrUsername()}
+http://4gewinnt.szüsz.de/Registrieren/Aktivieren?user={$objUser->getstrUsername()}
 
 Vielen Dank und viel Spaß beim 4-Gewinnt spielen :)
 
@@ -96,7 +96,7 @@ TXT;
             
             $objUserprofile->setlngUser($objUser->getUID());
 
-            if(!$objUser->doFullupdate() || $objUserprofile->doInsert()) {
+            if(!$objUser->doFullupdate() || !$objUserprofile->doInsert()) {
                 $this->_objResponse->strMessage = 'Aktivierung fehlgeschlagen';
             } else {
                 $this->_objResponse->strMessage = 'Aktivierung erfolgreich';

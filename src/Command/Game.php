@@ -98,7 +98,7 @@ class Command_Game extends Core_Base_Command implements IHttpRequest, IRestricte
                 $this->_objResponse->strTitle   .= ' - Fehler';
                 $this->_objResponse->strMessage = 'Fehler beim Beitreten. Bitte versuchen Sie er erneut.';
             } else {
-                header('Location: ' . CFG_WEB_ROOT . '/Game/Spielen?id=' . $objGame->getUID());
+                header('Location: ' . CFG_WEB_ROOT . '/Game/Spielen?uid=' . $objGame->getUID());
             }
         }
     }

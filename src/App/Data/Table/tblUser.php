@@ -62,4 +62,36 @@ AND
 
         return false;
     }
+    
+    public static function getHighscore() {
+        $strQuery = '
+SELECT
+    p.strUsername AS strName,
+    pf.lngPoints AS lngPoints,
+    pf.lngPlayedgames AS lngPlayedgames,
+    ROUND(pf.lngPoints / pf.lngPlayedgames) AS lngAvgpoints
+FROM
+    ' . self::TABLE_NAME . ' AS p
+LEFT JOIN
+    tbluserprofile AS pf ON (p.UID = pf.lngUser)
+WHERE
+    p.blnActivated = 1
+AND
+    pf.lngPlayedgames > 0
+ORDER BY
+    pf.lngPoints DESC
+';
+
+        try {
+            $arrData = App_Factory_Resource::getResource()->read($strQuery, true);
+
+            return $arrData;
+        } catch(App_Factory_Exception $e) {
+            var_dump($e);
+        } catch(Resource_Exception $e) {
+            return false;
+        }
+
+        return false;
+    }
 }

@@ -33,6 +33,13 @@ class Command_Spieler extends Core_Base_Command implements IHttpRequest, IRestri
         $this->_objResponse->lngPoints      = $objProfile->getlngPoints();
         $this->_objResponse->lngAvgpoints   = round($objProfile->getlngPoints() / $objProfile->getlngPlayedgames());
     }
+    
+    public function getHighscore() {
+        $this->_objResponse->tplContent = 'Spieler_GET_Highscore';
+
+        $this->_objResponse->strTitle   .= ' - List';
+        $this->_objResponse->arrPlayer  = tblUser::getHighscore();
+    }
 
     protected function _doInit() {
         $this->_objResponse->strTitle = 'Main';

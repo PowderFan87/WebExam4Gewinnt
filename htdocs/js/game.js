@@ -56,6 +56,16 @@ Game = {
                             return;
                         }
                         
+                        if(d.msg === 'draw') {
+                            // do winner logik
+                            $('.block').show();
+                            $('.over').show();
+                            
+                            $('#draw').show();
+                            
+                            return;
+                        }
+                        
                         $('.infBox').toggleClass('hasturn');
                         this.intval = window.setInterval(function(){Game.checkUpdate();}, 2000);
                     },
@@ -113,6 +123,17 @@ Game = {
                     
                     return;
                 }
+                
+                if(d.msg === 'draw') {
+                    // do winner logik
+                    $('.block').show();
+                    $('.over').show();
+                            
+                    $('#draw').show();
+                    
+                    return;
+                }
+                
                 $('#gamegrid').toggleClass('hasturn');
                 $('.infBox').toggleClass('hasturn');
             },

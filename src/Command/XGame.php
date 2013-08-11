@@ -52,6 +52,21 @@ class Command_XGame extends Core_Base_Command implements IXHttpRequest, IRestric
                 $arrJSON['msg']             = 'winner';
                 $arrJSON['data']['points']  = $objGame->getlngPointsleft();
 
+                $objUserprofile = tblUserprofile::getUserprofilebylnguser(App_Factory_Security::getSecurity()->getObjuser()->getUID());
+                $lngPlayedgames = $objUserprofile->getlngPlayedgames() + 1;
+
+                $objUserprofile->setlngPlayedgames($lngPlayedgames);
+
+                $objUserprofile->doFullupdate();
+                
+                // data
+                $arrJSON['data']['turn'] = $objGame->getlngTurn();
+                $arrJSON['data']['grid'] = $objGame->getArrgamegrid();
+                $arrJSON['data']['last'] = $objGame->getstrLastchange();
+                $arrJSON['data']['play'] = $objGame->getPlayertype();
+            }  else if($objGame->getlngPointsleft() <= 0) {
+                $arrJSON['msg'] = 'draw';
+
                 // data
                 $arrJSON['data']['turn'] = $objGame->getlngTurn();
                 $arrJSON['data']['grid'] = $objGame->getArrgamegrid();
@@ -112,7 +127,7 @@ class Command_XGame extends Core_Base_Command implements IXHttpRequest, IRestric
                 $arrJSON['msg'] = 'error';
             } else {
                 // check winner
-                
+              
                 if($objGame->getlngTurn() > 6 && App_Web_Game::doWinnercheck($objGame)) {
                     $arrJSON['msg']             = 'winner';
                     $arrJSON['data']['points']  = $objGame->getlngPointsleft();
@@ -127,6 +142,12 @@ class Command_XGame extends Core_Base_Command implements IXHttpRequest, IRestric
                     $objUserprofile->doFullupdate();
                     
                     $objGame->setlngWinner(App_Factory_Security::getSecurity()->getObjuser()->getUID());
+                    $objGame->setenmStatus('ended');
+                    
+                    $objGame->doFullupdate();
+                } else if($lngPointsleft <= 0) {
+                    $arrJSON['msg'] = 'draw';
+                    
                     $objGame->setenmStatus('ended');
                     
                     $objGame->doFullupdate();
