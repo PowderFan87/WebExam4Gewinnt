@@ -31,6 +31,7 @@ header, section, footer, nav div nav.sub {
 }
 
 h1,
+h3,
 nav a,
 nav a:visited,
 nav a:active,
@@ -84,6 +85,7 @@ th {
 }
 
 .fl { float: left; }
+.fr { float: right; }
 
 .iconText .ui-icon {
     margin-top: 4px;
@@ -94,9 +96,33 @@ th {
     width: 700px;
     margin-right: 20px;
     margin-bottom: 20px;
-    border: 1px solid #2973C8;
     float: left;
     background-color: #2973C8;
+}
+
+#gamegrid .over,
+#gamegrid .block {
+    position: absolute;
+    width: 700px;
+    height: 575px;
+    display: none;
+}
+
+#gamegrid .block {
+    background-color: #FFFFFF;
+    opacity: 0.75;
+}
+
+#gamegrid .over h1 {
+    font-size: 80px;
+    color: #FFFFFF;
+    margin-top: 230px;
+    margin-left: 70px;
+    
+    -webkit-text-shadow: 0px 0px 25px #E3001B;
+    -moz-text-shadow: 0px 0px 25px #E3001B;
+    -o-text-shadow: 0px 0px 25px #E3001B;
+    text-shadow: 0px 0px 25px #E3001B;
 }
 
 #gamegrid .row {
@@ -121,8 +147,24 @@ th {
 
 #gameinfo {
     width: 250px;
-    background-color: #0000FF;
+    height: 575px;
+    background-color: #2973C8;
     float: left;
+}
+
+#gameinfo .infBox {
+    margin: 0px 20px;
+    padding: 0px 10px 5px 10px;
+    background-color: #FFFFFF;
+    
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.addpoints {
+    color: green;
 }
 
 .theme0 .coin0 {
@@ -133,4 +175,16 @@ th {
 }
 .theme0 .coin2 {
     background-color: #F7F224;
+}
+.theme0 #infPlayer1 .hasturn {
+    -webkit-box-shadow: 0px 0px 10px 5px #F22F29, 0px 10px 10px 0px #F22F29;
+    -moz-box-shadow: 0px 0px 10px 5px #F22F29, 0px 10px 10px 0px #F22F29;
+    -o-box-shadow: 0px 0px 10px 5px #F22F29, 0px 10px 10px 0px #F22F29;
+    box-shadow: 0px 0px 10px 5px #F22F29, 0px 10px 10px 0px #F22F29;
+}
+.theme0 #infPlayer2 .hasturn {
+    -webkit-box-shadow: 0px 0px 10px 5px #F7F224, 0px 10px 10px 0px #F7F224;
+    -moz-box-shadow: 0px 0px 10px 5px #F7F224, 0px 10px 10px 0px #F7F224;
+    -o-box-shadow: 0px 0px 10px 5px #F7F224, 0px 10px 10px 0px #F7F224;
+    box-shadow: 0px 0px 10px 5px #F7F224, 0px 10px 10px 0px #F7F224;
 }

@@ -38,19 +38,31 @@ class Command_Game extends Core_Base_Command implements IHttpRequest, IRestricte
 
         $objGame = tblGame::getBypk($this->_objRequest->uid);
 
-        if(!($objGame instanceof App_Data_Game) || $objGame->notAuthenticated()) {
+        if(!($objGame instanceof App_Data_Game) || $objGame->notAuthenticated() || in_array($objGame->getenmStatus(), array('ended', 'error', 'closed'))) {
             $this->_objResponse->tplContent = 'Game_GET_Error';
             $this->_objResponse->strMessage = 'Leider können wir das Spiel nicht finden';
         } else {
             $this->_objResponse->lngGameid      = $objGame->getUID();
             $this->_objResponse->strGamename    = $objGame->getstrName();
             $this->_objResponse->lngThemeid     = $objGame->getlngThemeid();
+
+            $arrPlayerinfos = tblGame::getContestors($objGame);
             
             $lngPlayertype = $objGame->getPlayertype();
             
-            if(($lngPlayertype === 1 && ($objGame->getlngTurn() % 2 !== 0)) || ($lngPlayertype === 2 && ($objGame->getlngTurn() % 2 === 0))) {
+            if($lngPlayertype === 1 && ($objGame->getlngTurn() % 2 !== 0)) {
                 $this->_objResponse->strHasturn = 'hasturn';
+                $arrPlayerinfos[0]['strTurn1']  = ' hasturn'; 
+            } else if($lngPlayertype === 2 && ($objGame->getlngTurn() % 2 === 0)) {
+                $this->_objResponse->strHasturn = 'hasturn';
+                $arrPlayerinfos[0]['strTurn2']  = ' hasturn';
+            } else if($lngPlayertype === 1) {
+                $arrPlayerinfos[0]['strTurn2']  = ' hasturn';
+            } else if($lngPlayertype === 2) {
+                $arrPlayerinfos[0]['strTurn1']  = ' hasturn';
             }
+            
+            $this->_objResponse->arrPlayerinfos = $arrPlayerinfos;
         }
     }
     

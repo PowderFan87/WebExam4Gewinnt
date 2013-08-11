@@ -12,11 +12,15 @@ class App_Web_Game
      * @param App_Web_Game $objGame
      * @return boolean
      */
-    public static function doWinnercheck(App_Data_Game $objGame) {
+    public static function doWinnercheck(App_Data_Game $objGame, $blnInvert = false) {
         list($lngLasty, $lngLastx)  = str_split(str_replace('#f', '', $objGame->getstrLastchange()));
         $lngPlayernumber            = $objGame->getPlayertype();
         $arrGrid                    = $objGame->getArrgamegrid();
 
+        if($blnInvert) {
+            $lngPlayernumber = ($lngPlayernumber === 1) ? 2 : 1;
+        }
+        
         if(self::_doCheckhorizontal($lngLastx, $lngLasty, $lngPlayernumber, $arrGrid)) {
             return true;
         }

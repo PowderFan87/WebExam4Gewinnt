@@ -22,7 +22,7 @@ final class App_Data_Game extends App_Data_Base
         $objUser = App_Factory_Security::getSecurity()->getObjuser();
 
         if(!($objUser instanceof App_Data_User)) {
-            return false;
+            return true;
         }
         
         if($objUser->getUID() !== $this->getlngPlayer1() && $objUser->getUID() !== $this->getlngPlayer2()) {

@@ -48,6 +48,15 @@ class Command_XGame extends Core_Base_Command implements IXHttpRequest, IRestric
             // message
             if(!$blnUpdate) {
                 $arrJSON['msg'] = 'none';
+            } else if($objGame->getlngTurn() > 6 && App_Web_Game::doWinnercheck($objGame, true)) {
+                $arrJSON['msg']             = 'winner';
+                $arrJSON['data']['points']  = $objGame->getlngPointsleft();
+
+                // data
+                $arrJSON['data']['turn'] = $objGame->getlngTurn();
+                $arrJSON['data']['grid'] = $objGame->getArrgamegrid();
+                $arrJSON['data']['last'] = $objGame->getstrLastchange();
+                $arrJSON['data']['play'] = $objGame->getPlayertype();
             } else {
                 $arrJSON['msg'] = 'update';
                 
@@ -104,8 +113,23 @@ class Command_XGame extends Core_Base_Command implements IXHttpRequest, IRestric
             } else {
                 // check winner
                 
-                if(App_Web_Game::doWinnercheck($objGame)) {
-                    $arrJSON['msg'] = 'winner';
+                if($objGame->getlngTurn() > 6 && App_Web_Game::doWinnercheck($objGame)) {
+                    $arrJSON['msg']             = 'winner';
+                    $arrJSON['data']['points']  = $objGame->getlngPointsleft();
+                    
+                    $objUserprofile = tblUserprofile::getUserprofilebylnguser(App_Factory_Security::getSecurity()->getObjuser()->getUID());
+                    $lngNewpoints   = $objUserprofile->getlngPoints() + $objGame->getlngPointsleft();
+                    $lngPlayedgames = $objUserprofile->getlngPlayedgames() + 1;
+                    
+                    $objUserprofile->setlngPoints($lngNewpoints);
+                    $objUserprofile->setlngPlayedgames($lngPlayedgames);
+                    
+                    $objUserprofile->doFullupdate();
+                    
+                    $objGame->setlngWinner(App_Factory_Security::getSecurity()->getObjuser()->getUID());
+                    $objGame->setenmStatus('ended');
+                    
+                    $objGame->doFullupdate();
                 }
             }
             

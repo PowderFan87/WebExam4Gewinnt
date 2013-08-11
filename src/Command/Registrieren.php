@@ -91,8 +91,12 @@ TXT;
             $this->_objResponse->strUsername = $this->_objRequest->strUsername;
         } else {
             $objUser->setblnActivated(true);
+            
+            $objUserprofile = new App_Data_Userprofile();
+            
+            $objUserprofile->setlngUser($objUser->getUID());
 
-            if(!$objUser->doFullupdate()) {
+            if(!$objUser->doFullupdate() || $objUserprofile->doInsert()) {
                 $this->_objResponse->strMessage = 'Aktivierung fehlgeschlagen';
             } else {
                 $this->_objResponse->strMessage = 'Aktivierung erfolgreich';

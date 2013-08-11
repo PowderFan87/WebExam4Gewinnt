@@ -48,11 +48,15 @@ Game = {
                         
                         if(d.msg === 'winner') {
                             // do winner logik
+                            $('.block').show();
+                            $('.over').show();
                             
-                            alert('GEWONNEN!!!');
+                            $('#points'+this.data.play).html($('#points'+this.data.play).html()+'&nbsp;<span class="addpoints">+ '+this.data.points+'</span>');
                             
                             return;
                         }
+                        
+                        $('.infBox').toggleClass('hasturn');
                         this.intval = window.setInterval(function(){Game.checkUpdate();}, 2000);
                     },
                     'json'
@@ -95,17 +99,22 @@ Game = {
                     return;
                 }
                 
-                if(d.msg === 'winner') {
-                    // do winner logik
-                    return;
-                }
-                
-                window.clearInterval(Game.intval);
-                
                 this.data = d.data;
                 this.updateGrid();
                 
+                window.clearInterval(Game.intval);
+                
+                if(d.msg === 'winner') {
+                    // do winner logik
+                    $('.block').show();
+                    $('.over').show();
+                    
+                    $('#points'+((this.data.play===1)?2:1)).html($('#points'+((this.data.play===1)?2:1)).html()+'&nbsp;<span class="addpoints">+ '+this.data.points+'</span>');
+                    
+                    return;
+                }
                 $('#gamegrid').toggleClass('hasturn');
+                $('.infBox').toggleClass('hasturn');
             },
             'json'
         );

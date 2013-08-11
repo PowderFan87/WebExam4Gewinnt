@@ -169,4 +169,34 @@ AND
             return $arrCounts;
         }
     }
+    
+    public static function getContestors(App_Data_Game $objGame) {
+        $strQuery   = '
+SELECT
+    p1.strUsername AS strName1,
+    pf1.lngPoints AS lngPoints1,
+    p2.strUsername AS strName2,
+    pf2.lngPoints AS lngPoints2
+FROM
+    ' . self::TABLE_NAME . ' as g
+LEFT JOIN
+    tbluser AS p1 ON (g.lngPlayer1 = p1.UID)
+LEFT JOIN
+    tbluser AS p2 ON (g.lngPlayer2 = p2.UID)
+LEFT JOIN
+    tbluserprofile AS pf1 ON (p1.UID = pf1.lngUser)
+LEFT JOIN
+    tbluserprofile AS pf2 ON (p2.UID = pf2.lngUser)
+WHERE
+    g.UID = ' . $objGame->getUID() . '
+';
+        
+        try {
+            $arrData = App_Factory_Resource::getResource()->readSingle($strQuery);
+            
+            return array($arrData);
+        } catch (Resource_Exception $e) {
+            return array();
+        }
+    }
 }

@@ -2,6 +2,10 @@
         <h1>#VAR:strGamename#</h1>
         
         <div id="gamegrid" class="theme#VAR:lngThemeid# #VAR:strHasturn#">
+            <div class="block"></div>
+            <div class="over">
+                <h1>GAME OVER</h1>
+            </div>
             <div id="r0" class="row">
                 <div id="f05" class="field"></div>
                 <div id="f04" class="field"></div>
@@ -62,14 +66,22 @@
             <br clear="all" />
         </div>
 
-        <div id="gameinfo">
+        <div id="gameinfo" class="theme#VAR:lngThemeid#">
+            #FOREACH:arrPlayerinfos#
+            <div id="infPlayer1">
+                <div class="infBox#VAR:strTurn1#">
+                    <h3>Spieler 1:</h3>
+                    <strong>#VAR:strName1# (<span id="points1">#VAR:lngPoints1#</span>)</strong>
+                </div>
+            </div>
             <br />&nbsp;<br />
-            <br />&nbsp;<br />
-            <br />&nbsp;<br />
-            <br />&nbsp;<br />
-            <br />&nbsp;<br />
-            <br />&nbsp;<br />
-            <br />&nbsp;<br />
+            <div id="infPlayer2">
+                <div class="infBox#VAR:strTurn2#">
+                    <h3>Spieler 2:</h3>
+                    <strong>#VAR:strName2# (<span id="points2">#VAR:lngPoints2#</span>)</strong>
+                </div>
+            </div>
+            #/FOREACH#
         </div>
         
         <br clear="all" />
